@@ -34,32 +34,59 @@
                                     Reset
                                 </v-tab>
                                 <v-tab-item>
-                                    <v-card flat>
-                                    <v-card-text>Here register form</v-card-text>
+                                    <v-card class="pa-4" flat>
+                                    <div>
+                                    <v-text-field
+                                        label="Please type your email"
+                                    ></v-text-field>
+                                    <v-text-field label="Please type your password" 
+                                        ></v-text-field>
+                                    <v-text-field label="Confirm password" 
+                                        ></v-text-field>
+                                    </div>
                                     </v-card>
                                 </v-tab-item>
                                 <v-tab-item>
-                                    <v-card flat>
-                                    <v-card-text>Here login form</v-card-text>
+                                    <v-card class="pa-4" flat>
+                                    <div>
+                                    <v-text-field
+                                        label="Please type your email"
+                                    ></v-text-field>
+                                    <v-text-field label="Please type your password" 
+                                        ></v-text-field>
+                                    </div>
                                     </v-card>
                                 </v-tab-item>  
                                 <v-tab-item>
-                                    <v-card flat>
-                                    <v-card-text>Here reset form</v-card-text>
+                                    <v-card class="pa-4" flat>
+                                    <div>
+                                    <v-text-field
+                                        label="Forgot your password? Please type your email"
+                                    ></v-text-field>
+                                    </div>
                                     </v-card>
                                 </v-tab-item>  
                                 </v-tabs>
-
-                        </v-card>
-                        <v-card>
-                            <v-divider></v-divider>
-                            <v-card-actions class="justify-end">
-                                <v-btn
-                                    text
-                                    @click="dialog.value = false"
-                                    >Close
-                                </v-btn>
-                            </v-card-actions>
+                                <v-container>
+                                    <v-row>
+                                        <v-col>
+                                            <v-card-actions class="justify-end">
+                                            <v-btn
+                                                text
+                                                @click="dialog.value = false"
+                                                >Submit
+                                            </v-btn>
+                                            </v-card-actions>
+                                            <v-card-actions class="justify-end">
+                                            <v-btn
+                                                text
+                                                @click="dialog.value = false"
+                                                >Close
+                                            </v-btn>
+                                            </v-card-actions>
+                                        </v-col>
+                                    </v-row>
+                                </v-container>
                         </v-card>
                     </template>
                 </v-dialog>
