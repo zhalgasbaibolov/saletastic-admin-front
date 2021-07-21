@@ -48,7 +48,7 @@
         </v-list-item>
         <v-list-item to="settings" data-ms-content="members">
           <v-list-item-action>
-            <v-icon>mdi-settings</v-icon>
+            <v-icon>mdi-cog</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title v-text="`Profile`" />
