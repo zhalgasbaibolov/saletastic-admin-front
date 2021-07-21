@@ -31,7 +31,7 @@
         </v-list-item>
         <v-list-item to="#" data-ms-content="members">
           <v-list-item-action>
-            <v-icon>mdi-apps</v-icon>
+            <v-icon>mdi-account</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <h3 data-ms-member="email"></h3>
