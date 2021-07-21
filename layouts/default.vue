@@ -8,6 +8,14 @@
       app
     >
       <v-list>
+        <v-list-item to="#/ms/signup/60f7b76fc2135000047acf81">
+          <v-list-item-action>
+            <v-icon>mdi-apps</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="`Sign Up`" />
+          </v-list-item-content>
+        </v-list-item>
         <v-list-item
           v-for="(item, i) in items"
           :key="i"
