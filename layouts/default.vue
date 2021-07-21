@@ -8,13 +8,41 @@
       app
     >
       <v-list>
-        <v-btn data-ms-membership="60f7b76fc2135000047acf81"> signup </v-btn>
-        <v-list-item to="#/ms/signup/60f7b76fc2135000047acf81">
+        <v-list-item data-ms-content="!members">
           <v-list-item-action>
             <v-icon>mdi-apps</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title v-text="`Sign Up`" />
+            <v-btn
+              color="primary"
+              data-ms-membership="60f7b76fc2135000047acf81"
+            >
+              sign up
+            </v-btn>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item to="#/ms/login" data-ms-content="!members">
+          <v-list-item-action>
+            <v-icon>mdi-apps</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="`Sign In`" />
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item to="#/ms/profile" data-ms-content="members">
+          <v-list-item-action>
+            <v-icon>mdi-apps</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="`Profile`" />
+          </v-list-item-content>
+        </v-list-item>
+         <v-list-item to="#/ms/logout" data-ms-content="members">
+          <v-list-item-action>
+            <v-icon>mdi-apps</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="`Sign Out`" />
           </v-list-item-content>
         </v-list-item>
         <v-list-item
