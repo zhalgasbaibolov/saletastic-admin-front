@@ -53,18 +53,12 @@
             <v-list-item-title v-text="`Sign Out`" />
           </v-list-item-content>
         </v-list-item>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
+        <v-list-item to="/chat" data-ms-content="members">
           <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
+            <v-icon>mdi-chat</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
+            <v-list-item-title v-text="`Chat`" />
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -91,23 +85,6 @@ export default {
     return {
       drawer: false,
       fixed: false,
-      items: [
-        {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/',
-        },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire',
-        },
-        {
-          icon: 'mdi-chat',
-          title: 'Chat',
-          to: '/chat',
-        },
-      ],
       title: 'Admin panel',
     }
   },
