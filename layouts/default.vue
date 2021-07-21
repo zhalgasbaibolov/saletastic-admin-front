@@ -8,6 +8,7 @@
       app
     >
       <v-list>
+        <v-btn data-ms-membership="60f7b76fc2135000047acf81"> signup </v-btn>
         <v-list-item to="#/ms/signup/60f7b76fc2135000047acf81">
           <v-list-item-action>
             <v-icon>mdi-apps</v-icon>
