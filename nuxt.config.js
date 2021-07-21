@@ -13,6 +13,12 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+    scripts:[
+      {
+        src:'https://api.memberstack.io/static/memberstack.js?custom',
+        'data-memberstack-id':"87d0f6c847a00ecda09485f050a31ddd"
+      }
     ]
   },
 
