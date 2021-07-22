@@ -6,7 +6,7 @@
                     v-model="dialog"
                     width="500"
                 >
-                    <template v-slot:activator="{ on, attrs }">
+                    <template #activator="{ on, attrs }">
                     <v-btn
                         color="red lighten-2"
                         dark
@@ -16,7 +16,7 @@
                         Login
                     </v-btn>
                     </template>
-                    <template v-slot:default="dialog">
+                    <template #default="dialog">
                         <v-card>
                             <v-tabs
                                 color="cyan"

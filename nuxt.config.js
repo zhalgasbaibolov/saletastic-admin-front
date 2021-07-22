@@ -13,6 +13,12 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+    script:[
+      {
+        src:'https://api.memberstack.io/static/memberstack.js?custom',
+        'data-memberstack-id':"87d0f6c847a00ecda09485f050a31ddd"
+      }
     ]
   },
 
@@ -22,6 +28,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/memberstack.client.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
