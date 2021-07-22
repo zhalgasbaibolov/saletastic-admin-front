@@ -1,86 +1,137 @@
 <template>
-  <div id="app">
-    <v-app app>
-      <v-app-bar color="indigo darken-1" app>
-        <v-app-bar-nav-icon>
-        <v-icon color="white">mdi-arrow-left</v-icon>    
-        </v-app-bar-nav-icon>
-        <v-toolbar-title class="white--text"
-          >Sender (phone number)</v-toolbar-title>
-      </v-app-bar>
-      <v-container class="fill-height">
-        <v-row class="fill-height pb-14" align="end">
-          <v-col>
-            <div v-for="(item, index) in chat" :key="index" 
-                :class="['d-flex flex-row align-center my-2', item.from == 'user' ? 'justify-end': null]">
-              <span v-if="item.from == 'user'" class="blue--text mr-3">{{ item.msg }}</span>
-              <v-avatar :color="item.from == 'user' ? 'indigo': 'red'" size="36">
-                <span class="white--text">{{ item.from[0] }}</span>
-              </v-avatar>
-              <span v-if="item.from != 'user'" class="blue--text ml-3">{{ item.msg }}</span>
-            </div>
-          </v-col>
-        </v-row>
-      </v-container>
-      <v-card >
-        <v-form v-model="valid" ref="form">
-          <v-container>
-            <v-row justify="center" no-gutters>
-              <v-col :cols="10">
-                <div class="d-flex flex-row align-center">
-                  <v-text-field
-                  v-model="msg" placeholder="Type Something" @keypress.enter="send" flat rounded
-                    background-color="blue-grey lighten-5"
-                    color="tertiary"
-                  ></v-text-field>
-                  <v-btn
-                      icon
-                      large
-                      fab
-                      @click="send"
-                    >
-                      <v-icon>mdi-send</v-icon>
-                  </v-btn>
-                </div>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-form>
-      </v-card>
-    </v-app>
-  </div>
+<div id="app">
+  <v-app id="inspire">
+    <v-container class="grey lighten-5">
+      <v-row no-gutters>
+        <v-col
+          cols="3"
+        >
+          <v-title class="pa-2">Chats</v-title>
+          <v-card class="ma-1">
+            <v-list dense>
+              <v-list-item-group
+                v-model="selectedItem"
+                color="primary"
+              >
+                <v-list-item>
+                  <v-list-item-icon>
+                    <v-icon>mdi-account</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title>Contact 1</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-icon>
+                    <v-icon>mdi-account</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title>Contact 2</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-icon>
+                    <v-icon>mdi-account</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title>Contact 3</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-icon>
+                    <v-icon>mdi-account</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title>Contact 4</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-icon>
+                    <v-icon>mdi-account</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title>Contact 5</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-icon>
+                    <v-icon>mdi-account</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title>Contact 6</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list-item-group>
+            </v-list>
+          </v-card>
+        </v-col>
+        <v-col
+          cols="9"
+        >
+          <v-title class="pa-2">  Messages</v-title>
+          <v-card class="ma-1">
+            <v-container>
+              <v-row dense>
+                <v-col cols="12">
+                    <v-card-title class="text-h5">
+                      Contact 1
+                    </v-card-title>
+                    <v-form>
+                      <v-container>
+                        <v-row>
+                          <v-col
+                            cols="12">
+                            <v-text-field
+                              label="Type your message"
+                              filled
+                              outlined
+                            ></v-text-field>
+                          </v-col>
+                        </v-row>
+                      </v-container>
+                    </v-form>
+                    <v-card-actions>
+                      <v-btn text>
+                        Send
+                      </v-btn>
+                    </v-card-actions>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-app>
+</div>
 </template>
 
 
 <script type="JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
+
 <script>
 export default {
   setup() {
     new Vue({
       el: '#app',
       vuetify: new Vuetify(),
-      data: {
-        chat: [
+      data: () => ({
+        selectedItem: 1,
+        items: [
+          { text: 'Contact 1', icon: 'mdi-account' },
+          { text: 'Contact 2', icon: 'mdi-account' },
+          { text: 'Contact 3', icon: 'mdi-account' },
+          { text: 'Contact 4', icon: 'mdi-account' },
+          { text: 'Contact 5', icon: 'mdi-account' },
+          { text: 'Contact 6', icon: 'mdi-account' },
+          { text: 'Contact 7', icon: 'mdi-account' },
+          { text: 'Contact 8', icon: 'mdi-account' },
+          { text: 'Contact 9', icon: 'mdi-account' },
+          { text: 'Contact 10', icon: 'mdi-account' },
+          { text: 'Contact 11', icon: 'mdi-account' },
+          { text: 'Contact 12', icon: 'mdi-account' },
         ],
-        msg: null,
-      },
-      methods: {
-        send: function(){
-          this.chat.push(
-          {
-            from: "user",
-            msg: this.msg
-          })
-          this.msg = null
-          this.addReply()
-        },
-        addReply(){
-          this.chat.push({
-            from: "sushant",
-            msg: "Hmm"
-          })
-        }
-      }
+      }),
     })
   },
 }
