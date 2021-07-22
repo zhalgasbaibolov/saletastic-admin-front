@@ -1,138 +1,216 @@
 <template>
-<div id="app">
-  <v-app id="inspire">
-    <v-container class="grey lighten-5">
-      <v-row no-gutters>
-        <v-col
-          cols="3"
+    <div id="app">
+    <v-app>
+        <v-container
+          class="fill-height pa-0 "
         >
-          <v-title class="pa-2">Chats</v-title>
-          <v-card class="ma-1">
-            <v-list dense>
-              <v-list-item-group
-                v-model="selectedItem"
-                color="primary"
+          <v-row class="no-gutters elevation-4">
+            <v-col
+              cols="12" sm="3"
+              class="flex-grow-1 flex-shrink-0"
+              style="border-right: 1px solid #0000001f;"
+            >
+              <v-responsive
+                class="overflow-y-auto fill-height"
+                height="500"
               >
-                <v-list-item>
-                  <v-list-item-icon>
-                    <v-icon>mdi-account</v-icon>
-                  </v-list-item-icon>
-                  <v-list-item-content>
-                    <v-list-item-title>Contact 1</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-item-icon>
-                    <v-icon>mdi-account</v-icon>
-                  </v-list-item-icon>
-                  <v-list-item-content>
-                    <v-list-item-title>Contact 2</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-item-icon>
-                    <v-icon>mdi-account</v-icon>
-                  </v-list-item-icon>
-                  <v-list-item-content>
-                    <v-list-item-title>Contact 3</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-item-icon>
-                    <v-icon>mdi-account</v-icon>
-                  </v-list-item-icon>
-                  <v-list-item-content>
-                    <v-list-item-title>Contact 4</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-item-icon>
-                    <v-icon>mdi-account</v-icon>
-                  </v-list-item-icon>
-                  <v-list-item-content>
-                    <v-list-item-title>Contact 5</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-item-icon>
-                    <v-icon>mdi-account</v-icon>
-                  </v-list-item-icon>
-                  <v-list-item-content>
-                    <v-list-item-title>Contact 6</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list-item-group>
-            </v-list>
-          </v-card>
-        </v-col>
-        <v-col
-          cols="9"
-        >
-          <v-title class="pa-2">  Messages</v-title>
-          <v-card class="ma-1">
-            <v-container>
-              <v-row dense>
-                <v-col cols="12">
-                    <v-card-title class="text-h5">
-                      Contact 1
-                    </v-card-title>
-                    <v-form>
-                      <v-container>
-                        <v-row>
-                          <v-col
-                            cols="12">
-                            <v-text-field
-                              label="Type your message"
+                <v-list subheader>
+                  <v-list-item-group v-model="activeChat">
+                    <template v-for="(item, index) in parents">
+                      <v-list-item
+                        :key="`parent${index}`"
+                        :value="item.id"
+                      >
+                        <v-list-item-avatar color="grey lighten-1 white--text">
+                          <v-icon>
+                            mdi-account
+                          </v-icon>
+                        </v-list-item-avatar>
+                        <v-list-item-content>
+                          <v-list-item-title v-text="item.title"></v-list-item-title>
+                          <v-list-item-subtitle v-text="'hi'"></v-list-item-subtitle>
+                        </v-list-item-content>
+                      </v-list-item>
+                      <v-divider
+                        :key="`chatDivider${index}`"
+                        class="my-0"
+                      ></v-divider>
+                    </template>
+                  </v-list-item-group>
+                </v-list>
+              </v-responsive>
+            </v-col>
+            <v-col
+              cols="auto"
+              class="flex-grow-1 flex-shrink-0"
+            >
+              <v-responsive
+                v-if="activeChat"
+                class="overflow-y-hidden fill-height"
+                height="500"
+              >
+                <v-card
+                  flat
+                  class="d-flex flex-column fill-height"
+                >
+                  <v-card-title>
+                    john doe
+                  </v-card-title>
+                  <v-divider></v-divider>
+                  <v-card-text class="flex-grow-1 overflow-y-auto">
+                    <template>
+                      <div
+                        class="d-flex flex-row-reverse"
+                      >
+                        <v-menu offset-y>
+                          <template v-slot:activator="{ on }">
+                            <v-hover>
+                              <v-chip
+                                color="primary"
+                                dark
+                                style="height:auto;white-space: normal;"
+                                class="pa-4 mb-2"
+                                v-on="on"
+                              >Hello!
+                                <sub
+                                  class="ml-2"
+                                  style="font-size: 0.5rem;"
+                                >11:12 PM</sub>
+                              </v-chip>
+                            </v-hover>
+                          </template>
+                        </v-menu>
+                      </div>
+                    </template>
+                  </v-card-text>
+                  <v-card-text class="flex-shrink-1">
+                      <v-text-field
+                              v-model="message"
+                              append-outer-icon="mdi-send"
                               filled
-                              outlined
+                              clear-icon="mdi-close-circle"
+                              clearable
+                              label="Message"
+                              type="text"
+                              @click:append="toggleMarker"
+                              @click:append-outer="sendMessage"
+                              @click:clear="clearMessage"
                             ></v-text-field>
-                          </v-col>
-                        </v-row>
-                      </v-container>
-                    </v-form>
-                    <v-card-actions>
-                      <v-btn text>
-                        Send
-                      </v-btn>
-                    </v-card-actions>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-app>
+                  </v-card-text>
+                </v-card>
+              </v-responsive>
+            </v-col>
+          </v-row>
+        </v-container>
+    </v-app>
 </div>
 </template>
-
-
-<script type="JavaScript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.18/vue.min.js"></script>
-
+ 
 <script>
-export default {
-  setup() {
-    new Vue({
-      el: '#app',
-      vuetify: new Vuetify(),
-      data: () => ({
+export default ({
+  data: () => ({
+        password: 'Password',
+        show: false,
+        message: 'Hey!',
+        marker: true,
+        iconIndex: 0,
         selectedItem: 1,
-        items: [
-          { text: 'Contact 1', icon: 'mdi-account' },
-          { text: 'Contact 2', icon: 'mdi-account' },
-          { text: 'Contact 3', icon: 'mdi-account' },
-          { text: 'Contact 4', icon: 'mdi-account' },
-          { text: 'Contact 5', icon: 'mdi-account' },
-          { text: 'Contact 6', icon: 'mdi-account' },
-          { text: 'Contact 7', icon: 'mdi-account' },
-          { text: 'Contact 8', icon: 'mdi-account' },
-          { text: 'Contact 9', icon: 'mdi-account' },
-          { text: 'Contact 10', icon: 'mdi-account' },
-          { text: 'Contact 11', icon: 'mdi-account' },
-          { text: 'Contact 12', icon: 'mdi-account' },
-        ],
-      }),
-    })
+        activeChat: 1,
+        parents: [
+      {
+        id: 1,
+        title: "john doe",
+        active: true
+      },
+      {
+        id: 3,
+        title: "scarlett",
+        active: false
+      },
+      {
+        id: 4,
+        title: "scarlett",
+        active: false
+      },
+      {
+        id: 5,
+        title: "scarlett",
+        active: false
+      },
+      {
+        id: 6,
+        title: "scarlett",
+        active: false
+      },
+      {
+        id: 7,
+        title: "scarlett",
+        active: false
+      },
+      {
+        id: 8,
+        title: "scarlett",
+        active: false
+      },
+      {
+        id: 9,
+        title: "scarlett",
+        active: false
+      },
+      {
+        id: 10,
+        title: "scarlett",
+        active: false
+      },
+      {
+        id: 11,
+        title: "scarlett",
+        active: false
+      },
+      {
+        id: 12,
+        title: "scarlett",
+        active: false
+      },
+      {
+        id: 13,
+        title: "scarlett",
+        active: false
+      },
+      {
+        id: 14,
+        title: "scarlett",
+        active: false
+      }
+    ],
+    messages: [
+    ],
+    messageForm: {
+      content: "",
+      me: true,
+      created_at: "11:11am"
+    }
+  }),
+  computed: {
+    icon() {
+      return this.icons[this.iconIndex]
+    },
   },
-}
+
+  methods: {
+    toggleMarker() {
+      this.marker = !this.marker
+    },
+    sendMessage() {
+      this.resetIcon()
+      this.clearMessage()
+    },
+    clearMessage() {
+      this.message = ''
+    },
+    resetIcon() {
+      this.iconIndex = 0
+    },
+  },
+})
 </script>
