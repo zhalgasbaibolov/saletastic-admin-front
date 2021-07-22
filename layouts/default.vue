@@ -51,15 +51,7 @@
             <v-icon>mdi-cog</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title v-text="`Profile`" />
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item to="#/ms/logout" data-ms-content="members">
-          <v-list-item-action>
-            <v-icon>mdi-apps</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="`Sign Out`" />
+            <v-list-item-title v-text="`Settings`" />
           </v-list-item-content>
         </v-list-item>
         <v-list-item to="/chat" data-ms-content="members">
@@ -68,6 +60,14 @@
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title v-text="`Chat`" />
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item to="#/ms/logout" data-ms-content="members">
+          <v-list-item-action>
+            <v-icon>mdi-apps</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="`Sign Out`" />
           </v-list-item-content>
         </v-list-item>
       </v-list>
