@@ -58,12 +58,12 @@
                   </v-card-title>
                   <v-divider></v-divider>
                   <v-card-text class="flex-grow-1 overflow-y-auto">
-                    <template>
-                      <div
+                    <template >
+                      <div v-for="(msg, index) in messages" :key="index" 
                         class="d-flex flex-row-reverse"
                       >
                         <v-menu offset-y>
-                          <template v-slot:activator="{ on }">
+                          <template #activator="{ on }">
                             <v-hover>
                               <v-chip
                                 color="primary"
@@ -71,11 +71,11 @@
                                 style="height:auto;white-space: normal;"
                                 class="pa-4 mb-2"
                                 v-on="on"
-                              >Hello!
+                              >{{ msg.content }}
                                 <sub
                                   class="ml-2"
                                   style="font-size: 0.5rem;"
-                                >11:12 PM</sub>
+                                >{{ msg.created_at }}</sub>
                               </v-chip>
                             </v-hover>
                           </template>
@@ -85,15 +85,18 @@
                   </v-card-text>
                   <v-card-text class="flex-shrink-1">
                       <v-text-field
-                              v-model="message"
+                              v-model="messageForm.content"
                               append-outer-icon="mdi-send"
                               filled
+                              outlined
                               clear-icon="mdi-close-circle"
                               clearable
+                              no-details
                               label="Message"
                               type="text"
                               @click:append="toggleMarker"
-                              @click:append-outer="sendMessage"
+                              @keyup.enter="messages.push(messageForm)"
+                              @click:append-outer="messages.push(messageForm)"
                               @click:clear="clearMessage"
                             ></v-text-field>
                   </v-card-text>
@@ -184,6 +187,41 @@ export default ({
       }
     ],
     messages: [
+      {
+        content: "lorem ipsum",
+        me: true,
+        created_at: "11:11am"
+      },
+      {
+        content: "dolor",
+        me: false,
+        created_at: "11:11am"
+      },
+      {
+        content: "dolor",
+        me: false,
+        created_at: "11:11am"
+      },
+      {
+        content: "dolor",
+        me: false,
+        created_at: "11:11am"
+      },
+      {
+        content: "dolor",
+        me: true,
+        created_at: "11:11am"
+      },
+      {
+        content: "dolor",
+        me: false,
+        created_at: "11:12am"
+      },
+      {
+        content: "dolor",
+        me: false,
+        created_at: "11:14am"
+      }
     ],
     messageForm: {
       content: "",

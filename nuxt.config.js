@@ -48,7 +48,12 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    '~/io'
   ],
+
+  env: {
+    WS_URL: process.env.WS_URL || 'http://localhost:3000'
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
