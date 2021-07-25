@@ -2,7 +2,7 @@
     <div id="app">
     <v-app>
         <v-container
-          class="fill-height pa-0 "
+          class="pa-0 ma-0"
         >
           <v-row class="no-gutters elevation-4">
             <v-col
@@ -12,7 +12,6 @@
             >
               <v-responsive
                 class="overflow-y-auto fill-height"
-                height="500"
               >
                 <v-list subheader>
                   <v-list-item-group v-model="activeChat">
@@ -28,7 +27,7 @@
                         </v-list-item-avatar>
                         <v-list-item-content>
                           <v-list-item-title v-text="item.title"></v-list-item-title>
-                          <v-list-item-subtitle v-text="'hi'"></v-list-item-subtitle>
+                          <v-list-item-subtitle v-text="'hello'"></v-list-item-subtitle>
                         </v-list-item-content>
                       </v-list-item>
                       <v-divider
@@ -41,13 +40,13 @@
               </v-responsive>
             </v-col>
             <v-col
-              cols="auto"
-              class="flex-grow-1 flex-shrink-0"
+            cols="auto"
+            class="flex-grow-1 flex-shrink-0"
             >
               <v-responsive
                 v-if="activeChat"
                 class="overflow-y-hidden fill-height"
-                height="500"
+                height="600"
               >
                 <v-card
                   flat
@@ -58,47 +57,35 @@
                   </v-card-title>
                   <v-divider></v-divider>
                   <v-card-text class="flex-grow-1 overflow-y-auto">
-                    <template >
-                      <div v-for="(msg, index) in messages" :key="index" 
-                        class="d-flex flex-row-reverse"
-                      >
-                        <v-menu offset-y>
-                          <template #activator="{ on }">
-                            <v-hover>
-                              <v-chip
-                                color="primary"
-                                dark
-                                style="height:auto;white-space: normal;"
-                                class="pa-4 mb-2"
+                    <v-menu offset-y>
+                      <template #activator="{ on }">
+                        <ul v-for="(msg, index) in messages" :key="index" class="d-flex flex-row-reverse">
+                             <v-card-text
+                                class="pa-1 mb-1"
                                 v-on="on"
-                              >{{ msg.content }}
+                              >
+                               {{ msg.text }}
                                 <sub
                                   class="ml-2"
                                   style="font-size: 0.5rem;"
-                                >{{ msg.created_at }}</sub>
-                              </v-chip>
-                            </v-hover>
-                          </template>
-                        </v-menu>
-                      </div>
-                    </template>
+                                >{{ msg.date.split('T')[1].slice(0, -5) }}</sub>
+                              </v-card-text>
+                        </ul>
+                      </template>
+                    </v-menu>
                   </v-card-text>
-                  <v-card-text class="flex-shrink-1">
-                      <v-text-field
-                              v-model="messageForm.content"
+                  <v-card-text>
+                      <v-text-field 
+                              v-model="message"
+                              placeholder="type here..."
+                              @click:append="toggleMarker"
+                              @keyup.enter="sendMessage"
+                              @click:append-outer="sendMessage"
                               append-outer-icon="mdi-send"
                               filled
                               outlined
-                              clear-icon="mdi-close-circle"
-                              clearable
-                              no-details
-                              label="Message"
                               type="text"
-                              @click:append="toggleMarker"
-                              @keyup.enter="messages.push(messageForm)"
-                              @click:append-outer="messages.push(messageForm)"
-                              @click:clear="clearMessage"
-                            ></v-text-field>
+                            />
                   </v-card-text>
                 </v-card>
               </v-responsive>
@@ -110,11 +97,18 @@
 </template>
  
 <script>
-export default ({
-  data: () => ({
+import socket from '~/plugins/socket.io.js'
+export default {
+  asyncData () {
+    return new Promise(resolve =>
+      socket.emit('last-messages', messages => resolve({ messages }))
+    )
+  },
+  data () {
+    return {
         password: 'Password',
         show: false,
-        message: 'Hey!',
+        message: '',
         marker: true,
         iconIndex: 0,
         selectedItem: 1,
@@ -126,113 +120,35 @@ export default ({
         active: true
       },
       {
+        id: 2,
+        title: "scarlett",
+        active: false
+      },
+      {
         id: 3,
         title: "scarlett",
         active: false
-      },
-      {
-        id: 4,
-        title: "scarlett",
-        active: false
-      },
-      {
-        id: 5,
-        title: "scarlett",
-        active: false
-      },
-      {
-        id: 6,
-        title: "scarlett",
-        active: false
-      },
-      {
-        id: 7,
-        title: "scarlett",
-        active: false
-      },
-      {
-        id: 8,
-        title: "scarlett",
-        active: false
-      },
-      {
-        id: 9,
-        title: "scarlett",
-        active: false
-      },
-      {
-        id: 10,
-        title: "scarlett",
-        active: false
-      },
-      {
-        id: 11,
-        title: "scarlett",
-        active: false
-      },
-      {
-        id: 12,
-        title: "scarlett",
-        active: false
-      },
-      {
-        id: 13,
-        title: "scarlett",
-        active: false
-      },
-      {
-        id: 14,
-        title: "scarlett",
-        active: false
-      }
+      } 
     ],
-    messages: [
-      {
-        content: "lorem ipsum",
-        me: true,
-        created_at: "11:11am"
-      },
-      {
-        content: "dolor",
-        me: false,
-        created_at: "11:11am"
-      },
-      {
-        content: "dolor",
-        me: false,
-        created_at: "11:11am"
-      },
-      {
-        content: "dolor",
-        me: false,
-        created_at: "11:11am"
-      },
-      {
-        content: "dolor",
-        me: true,
-        created_at: "11:11am"
-      },
-      {
-        content: "dolor",
-        me: false,
-        created_at: "11:12am"
-      },
-      {
-        content: "dolor",
-        me: false,
-        created_at: "11:14am"
-      }
-    ],
-    messageForm: {
-      content: "",
-      me: true,
-      created_at: "11:11am"
     }
-  }),
+  },
+  // watch: {
+  //   messages: ''
+  // },
+  
   computed: {
     icon() {
       return this.icons[this.iconIndex]
     },
+  },
+  beforeMount () {
+    socket.on('new-message', (message) => {
+      this.messages.push(message)
+    })
+  },
+  
+  mounted () {
+    // this.scrollToBottom()
   },
 
   methods: {
@@ -242,7 +158,20 @@ export default ({
     sendMessage() {
       this.resetIcon()
       this.clearMessage()
+      if (!this.message.trim()) { return }
+      const message = {
+        date: new Date().toJSON(),
+        text: this.message.trim()
+      }
+      this.messages.push(message)
+      this.message = ''
+      socket.emit('send-message', message)
     },
+    // scrollToBottom () {
+    //   this.$nextTick(() => {
+    //     this.$refs.messages.scrollTop = this.$refs.messages.scrollHeight
+    //   })
+    // },
     clearMessage() {
       this.message = ''
     },
@@ -250,5 +179,5 @@ export default ({
       this.iconIndex = 0
     },
   },
-})
+}
 </script>
