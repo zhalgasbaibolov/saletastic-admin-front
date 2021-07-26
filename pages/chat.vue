@@ -64,7 +64,7 @@
                                 <ul ref="messages" class="messages">
                                   <li v-for="(msg, index) in messages" :key="index" class="message">
                                     <i :title="msg.date">
-                                      {{ msg.date.split('T')[1].slice(0, -2) }}
+                                      {{ msg.date.split('T')[1].slice(0, -5) }}
                                     </i>: {{ msg.text }}
                                   </li>
                                 </ul>
@@ -226,7 +226,7 @@ ul li { padding: 0.5rem 1rem; }
   padding: 10px 20px 10px 20px;
 }
 .inputMessage {
-  border: 10px solid #3B8070;
+  border: 3px solid #3B8070;
   bottom: 0;
   height: 60px;
   left: 0;
