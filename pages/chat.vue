@@ -56,7 +56,11 @@
                               class="message"
                             >
                               <i :title="msg.date">
-                                {{ msg.date.split('T')[1].slice(0, -2) }} </i
+                                {{
+                                  msg.date
+                                    ? msg.date.split('T')[1].slice(0, -2)
+                                    : ''
+                                }} </i
                               >: {{ msg.text }}
                             </li>
                           </ul>
@@ -84,6 +88,7 @@
 </template>
  
 <script>
+/* eslint-disable no-console */
 import socket from '~/plugins/socket.io.js'
 export default {
   data() {
@@ -123,9 +128,14 @@ export default {
     socket.on('msg', (message) => {
       this.messages.push(message)
     })
+    socket.on('last-messages', (arr) => {
+      console.log(arr)
+      this.messages.push(...arr)
+    })
   },
 
   mounted() {
+    window.test = this
     this.scrollToBottom()
     socket.emit(
       'register-token',
