@@ -12,17 +12,20 @@
             <v-responsive class="overflow-y-auto fill-height">
               <v-list subheader>
                 <v-list-item-group v-model="activeChat">
-                  <template v-for="(item, index) in parents">
-                    <v-list-item :key="`parent${index}`" :value="item.id">
+                  <template v-for="(item, index) in chats">
+                    <v-list-item
+                      :key="item.whatsappNumber"
+                      :value="item.whatsappNumber"
+                    >
                       <v-list-item-avatar color="grey lighten-1 white--text">
                         <v-icon> mdi-account </v-icon>
                       </v-list-item-avatar>
                       <v-list-item-content>
                         <v-list-item-title
-                          v-text="item.title"
+                          v-text="item.profileName"
                         ></v-list-item-title>
                         <v-list-item-subtitle
-                          v-text="'hello'"
+                          v-text="getWhatsappNumber(item.whatsappNumber)"
                         ></v-list-item-subtitle>
                       </v-list-item-content>
                     </v-list-item>
@@ -42,7 +45,7 @@
               height="600"
             >
               <v-card flat class="d-flex flex-column fill-height">
-                <v-card-title> john doe </v-card-title>
+                <v-card-title> {{ activeChatUserName() }} </v-card-title>
                 <v-divider></v-divider>
                 <v-card height="450">
                   <div>
@@ -90,25 +93,14 @@ export default {
   data() {
     return {
       message: '',
-      messages: [],
-      activeChat: 1,
-      parents: [
+      chats: [
         {
-          id: 1,
-          title: 'john doe',
+          whatsappNumber: 'wh:+77078629827',
+          profileName: 'Nurlan',
           active: true,
         },
-        {
-          id: 2,
-          title: 'scarlett',
-          active: false,
-        },
-        {
-          id: 3,
-          title: 'scarlett',
-          active: false,
-        },
       ],
+      activeChat: 1,
     }
   },
 
@@ -118,15 +110,15 @@ export default {
     },
   },
   watch: {
-    messages: 'scrollToBottom',
+    chats: 'scrollToBottom',
   },
   beforeMount() {
     socket.on('msg', (message) => {
-      this.messages.push(message)
+      this.chats.push(message)
     })
     socket.on('last-messages', (arr) => {
       console.log(arr)
-      this.messages.push(...arr)
+      this.chats.push(...arr)
     })
   },
 
@@ -140,6 +132,15 @@ export default {
   },
 
   methods: {
+    activeChatUserName() {
+      if (!this.chats || !this.chats.length) return 'no chats'
+      const activeChat = this.chats.find((ch) => ch.active)
+      return activeChat.profileName
+    },
+    getWhatsappNumber(whNumber) {
+      if (!whNumber || !whNumber.length) return ''
+      return whNumber.substring(whNumber.indexOf(':') + 1)
+    },
     getDateInfo(dt) {
       if (!dt) return ''
       dt = new Date(dt)
@@ -154,7 +155,7 @@ export default {
         date: new Date().toJSON(),
         text: this.message.trim(),
       }
-      this.messages.push(message)
+      this.chats.push(message)
       this.message = ''
       socket.emit('msg', message)
     },
