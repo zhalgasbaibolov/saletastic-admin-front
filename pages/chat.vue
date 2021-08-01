@@ -119,7 +119,7 @@ export default {
       this.pushToMessages(message)
     })
     socket.on('last-messages', (arr) => {
-      console.log(arr)
+      console.log('last-messages', arr)
       this.pushToMessages(...arr)
     })
   },
