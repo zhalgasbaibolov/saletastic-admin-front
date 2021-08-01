@@ -53,7 +53,11 @@
                             <li
                               v-for="(msg, index) in filteredMessages"
                               :key="index"
-                              class="message"
+                              :class="
+                                msg.owner === 'support'
+                                  ? 'support-msg message'
+                                  : 'message'
+                              "
                             >
                               <i :title="msg.date">
                                 {{ getDateInfo(msg.date) }} </i
@@ -163,6 +167,7 @@ export default {
         whatsappNumber: this.activeChat.whatsappNumber,
         profileName: this.activeChat.profileName,
         accountSid: this.activeChat.accountSid,
+        owner: 'support',
       }
       this.pushToMessages(message)
       this.message = ''
@@ -177,8 +182,12 @@ export default {
   },
 }
 </script>
-
-<style>
+<style scoped>
+.support-msg {
+  text-align: right;
+}
+</style>
+<style scoped>
 * {
   box-sizing: border-box;
 }
