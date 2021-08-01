@@ -121,11 +121,11 @@ export default {
   },
   beforeMount() {
     socket.on('msg', (message) => {
-      this.chats.push(message)
+      this.pushToMessages(message)
     })
     socket.on('last-messages', (arr) => {
       console.log(arr)
-      this.messages.push(...arr)
+      this.pushToMessages(...arr)
     })
   },
 
@@ -139,6 +139,19 @@ export default {
   },
 
   methods: {
+    pushToMessages(...arr) {
+      for (const m of arr) {
+        const exist = this.chats.find(
+          (ch) => ch.whatsappNumber === m.whatsappNumber
+        )
+        if (!exist) {
+          this.chats.push({
+            whatsappNumber:  m.whatsappNumber,
+            profileName: m.profileName,
+          })
+        }
+      }
+    },
     getActiveChatUserName() {
       if (!this.chats || !this.chats.length) return 'no chats'
       return this.activeChat ? this.activeChat.profileName : 'no selected chat'
@@ -148,7 +161,7 @@ export default {
       return whNumber.substring(whNumber.indexOf(':') + 1)
     },
     getDateInfo(dt) {
-      if (!dt) return ''
+      if (!dt) return 'no date'
       dt = new Date(dt)
       if (isNaN(dt.getTime())) dt = new Date()
       return dt.toLocaleString()
@@ -161,7 +174,11 @@ export default {
         date: new Date().toJSON(),
         text: this.message.trim(),
       }
-      this.chats.push(message)
+      this.pushToMessages({
+        ...message,
+        whatsappNumber: this.activeChat.whatsappNumber,
+        profileName: this.activeChat.profileName,
+      })
       this.message = ''
       socket.emit('msg', message)
     },
