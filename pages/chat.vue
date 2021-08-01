@@ -54,7 +54,7 @@
                               v-for="(msg, index) in filteredMessages"
                               :key="index"
                               :class="{
-                                supportMsg: msg.owner,
+                                supportMsg: msg.owner === 'support',
                                 message: true,
                                 test: true,
                               }"
