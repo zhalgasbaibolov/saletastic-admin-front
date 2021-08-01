@@ -56,11 +56,7 @@
                               class="message"
                             >
                               <i :title="msg.date">
-                                {{
-                                  msg.date
-                                    ? msg.date.split('T')[1].slice(0, -2)
-                                    : ''
-                                }} </i
+                                {{ getDateInfo(msg.date) }} </i
                               >: {{ msg.text }}
                             </li>
                           </ul>
@@ -144,6 +140,12 @@ export default {
   },
 
   methods: {
+    getDateInfo(dt) {
+      if (!dt) return ''
+      dt = new Date(dt)
+      if (isNaN(dt.getTime())) dt = new Date()
+      return dt.toLocaleString()
+    },
     sendMessage() {
       if (!this.message.trim()) {
         return
