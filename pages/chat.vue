@@ -134,10 +134,7 @@ export default {
           (ch) => ch.whatsappNumber === m.whatsappNumber
         )
         if (!exist) {
-          this.chats.push({
-            whatsappNumber: m.whatsappNumber,
-            profileName: m.profileName,
-          })
+          this.chats.push(m)
         }
         this.messages.push(m)
       }
@@ -165,6 +162,7 @@ export default {
         text: this.message.trim(),
         whatsappNumber: this.activeChat.whatsappNumber,
         profileName: this.activeChat.profileName,
+        accountSid: this.activeChat.accountSid,
       }
       this.pushToMessages(message)
       this.message = ''
