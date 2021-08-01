@@ -123,10 +123,7 @@ export default {
   mounted() {
     window.test = this
     this.scrollToBottom()
-    socket.emit(
-      'register-token',
-      'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImQ3NjM1OGNmYjc4NzdhZTdjYWE4ZDdjNTY3YjYwZjdhY2YzZmQ0MjQifQ.eyJpZCI6IjYwZjdmMWRhMDM0ODFjMDAwNGNkYTlhMSIsImVtYWlsIjoia2FybnVybWF4QG1haWwucnUiLCJzaXRlIjoiNjBmN2I2YTU5MGU3NDIwMDA0ZjAzODYyIiwiaWF0IjoxNjI3NjIxMTgyLCJleHAiOjE2MjgyMjU5ODJ9.OHTY5x-wgZHRyKfWlRxztDFXleIU8dEyzsmLMPzVQSSQJ8ZruK4k4DGq00-ndiJzxEBzzk3pqEPOLdyGoQY6_HEHjizxFaKPk_tjlde-FPr59qWGcD11Lehm4EGdlM4RDIO_CwwSWGxzywAxWKBQ2LZ2llhHQZd4pkVX8fwUVr5gcVvlECjo3nhBfFWgbueOxbDU5RBvZa-69tWTdHIDWusylWDR6_g-pwPk9Mew8yMIYvi5QbZkl4tJOtWPS4B3BwqUIclMLR7R5drHLcI5IG5lFz_Hh5azEs8URlZKRscgkhZNaZ1cT8SHvkeZ-WqkF0iJqq9eV44EwfxLeLv1Vf4b6oMyWKF_4P7BRevVUFUWdgaTI9kTmgbzSCy3-vxFqNKJm-jIoGO7FhSxRDtpB5Jc92usCGR8YtWfRdaFOiUqKZTAvsHqot6Z753quP9yYe9h0iO3Ee6qKeTOSGV7C-IHsyqmjeqOjGafTKkr1XrVj8HaNDaxjRpnwjYZ6IBB6NDq2Qij3cEqBRfAUtxFcV7sXPa5B7YRmr3tNGDcz74Lla3RJJpAcjAZqP6_C86hrPeiSaHFwQkuGh4y0lfLZMAdi2-C3myQlhzwt4jKSs7f8vD1tlpdXqVppe2Pm607MoKNIY7ZL6t7-GP_GKTUEdxnwPM-9OATOFTiY39EfrA'
-    )
+    socket.emit('register-token', window.MemberStack.getToken())
   },
 
   methods: {
