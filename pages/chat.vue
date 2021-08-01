@@ -91,16 +91,7 @@ export default {
     return {
       message: '',
       messages: [],
-      chats: [
-        {
-          whatsappNumber: 'wh:+77078629827',
-          profileName: 'Nurlan',
-        },
-        {
-          whatsappNumber: 'wh:+4884',
-          profileName: 'Nufefrlan',
-        },
-      ],
+      chats: [],
       activeChat: null,
     }
   },
