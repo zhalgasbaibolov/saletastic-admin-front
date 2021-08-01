@@ -163,12 +163,10 @@ export default {
       const message = {
         date: new Date().toJSON(),
         text: this.message.trim(),
-      }
-      this.pushToMessages({
-        ...message,
         whatsappNumber: this.activeChat.whatsappNumber,
         profileName: this.activeChat.profileName,
-      })
+      }
+      this.pushToMessages(message)
       this.message = ''
       socket.emit('msg', message)
     },
