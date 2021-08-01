@@ -142,6 +142,7 @@ export default {
             profileName: m.profileName,
           })
         }
+        this.messages.push(m)
       }
     },
     getActiveChatUserName() {
