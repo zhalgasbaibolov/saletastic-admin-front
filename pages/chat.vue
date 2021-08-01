@@ -53,11 +53,11 @@
                             <li
                               v-for="(msg, index) in filteredMessages"
                               :key="index"
-                              :class="
-                                msg.owner === 'support'
-                                  ? 'support-msg message'
-                                  : 'message'
-                              "
+                              :class="{
+                                'support-msg': isActive,
+                                message: true,
+                                test: true,
+                              }"
                             >
                               <i :title="msg.date">
                                 {{ getDateInfo(msg.date) }} </i
