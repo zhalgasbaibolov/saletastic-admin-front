@@ -128,7 +128,7 @@ export default {
 
   methods: {
     pushToMessages(...arr) {
-      console.log('push to messages', arr)
+      console.log('push to messages', ...arr)
       for (const m of arr) {
         const exist = this.chats.find(
           (ch) => ch.whatsappNumber === m.whatsappNumber
