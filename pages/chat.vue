@@ -120,6 +120,9 @@ export default {
     })
     socket.on('last-messages', (arr) => {
       console.log('last-messages', arr)
+      arr.forEach((x) => {
+        x.date = x.date || x.createdAt
+      })
       this.pushToMessages(...arr)
     })
   },
