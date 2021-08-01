@@ -13,10 +13,7 @@
               <v-list subheader>
                 <v-list-item-group v-model="activeChat">
                   <template v-for="(item, index) in chats">
-                    <v-list-item
-                      :key="item.whatsappNumber"
-                      :value="item.whatsappNumber"
-                    >
+                    <v-list-item :key="item.whatsappNumber" :value="item">
                       <v-list-item-avatar color="grey lighten-1 white--text">
                         <v-icon> mdi-account </v-icon>
                       </v-list-item-avatar>
@@ -45,7 +42,7 @@
               height="600"
             >
               <v-card flat class="d-flex flex-column fill-height">
-                <v-card-title> {{ activeChatUserName() }} </v-card-title>
+                <v-card-title> {{ getActiveChatUserName() }} </v-card-title>
                 <v-divider></v-divider>
                 <v-card height="450">
                   <div>
@@ -54,7 +51,7 @@
                         <div class="chatArea">
                           <ul ref="messages" class="messages">
                             <li
-                              v-for="(msg, index) in messages"
+                              v-for="(msg, index) in filteredMessages"
                               :key="index"
                               class="message"
                             >
@@ -93,14 +90,18 @@ export default {
   data() {
     return {
       message: '',
+      messages: [],
       chats: [
         {
           whatsappNumber: 'wh:+77078629827',
           profileName: 'Nurlan',
-          active: true,
+        },
+        {
+          whatsappNumber: 'wh:+4884',
+          profileName: 'Nufefrlan',
         },
       ],
-      activeChat: 1,
+      activeChat: null,
     }
   },
 
@@ -108,9 +109,15 @@ export default {
     icon() {
       return this.icons[this.iconIndex]
     },
+    filteredMessages() {
+      if (!this.activeChat) return []
+      return this.messages.filter(
+        (m) => m.whatsappNumber === this.activeChat.whatsappNumber
+      )
+    },
   },
   watch: {
-    chats: 'scrollToBottom',
+    messages: 'scrollToBottom',
   },
   beforeMount() {
     socket.on('msg', (message) => {
@@ -118,7 +125,7 @@ export default {
     })
     socket.on('last-messages', (arr) => {
       console.log(arr)
-      this.chats.push(...arr)
+      this.messages.push(...arr)
     })
   },
 
@@ -132,10 +139,9 @@ export default {
   },
 
   methods: {
-    activeChatUserName() {
+    getActiveChatUserName() {
       if (!this.chats || !this.chats.length) return 'no chats'
-      const activeChat = this.chats.find((ch) => ch.active)
-      return activeChat.profileName
+      return this.activeChat ? this.activeChat.profileName : 'no selected chat'
     },
     getWhatsappNumber(whNumber) {
       if (!whNumber || !whNumber.length) return ''
@@ -161,7 +167,8 @@ export default {
     },
     scrollToBottom() {
       this.$nextTick(() => {
-        this.$refs.messages.scrollTop = this.$refs.messages.scrollHeight
+        if (this.$refs && this.$refs.messages)
+          this.$refs.messages.scrollTop = this.$refs.messages.scrollHeight
       })
     },
   },
