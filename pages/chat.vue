@@ -140,13 +140,14 @@ export default {
 
   methods: {
     pushToMessages(...arr) {
+      console.log('push to messages', arr)
       for (const m of arr) {
         const exist = this.chats.find(
           (ch) => ch.whatsappNumber === m.whatsappNumber
         )
         if (!exist) {
           this.chats.push({
-            whatsappNumber:  m.whatsappNumber,
+            whatsappNumber: m.whatsappNumber,
             profileName: m.profileName,
           })
         }
