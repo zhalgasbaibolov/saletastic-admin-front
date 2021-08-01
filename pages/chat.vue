@@ -54,7 +54,7 @@
                               v-for="(msg, index) in filteredMessages"
                               :key="index"
                               :class="{
-                                'support-msg': msg.owner === 'support',
+                                supportMsg: msg.owner,
                                 message: true,
                                 test: true,
                               }"
@@ -183,7 +183,7 @@ export default {
 }
 </script>
 <style scoped>
-.support-msg {
+.supportMsg {
   text-align: right;
 }
 </style>
