@@ -1,167 +1,196 @@
 <template>
-    <div id="app">
+  <div id="app">
     <v-app>
-        <v-container
-          class="pa-0 ma-0"
-        >
-          <v-row class="no-gutters elevation-4">
-            <v-col
-              cols="12" sm="3"
-              class="flex-grow-1 flex-shrink-0"
-              style="border-right: 1px solid #0000001f;"
-            >
-              <v-responsive
-                class="overflow-y-auto fill-height"
-              >
-                <v-list subheader>
-                  <v-list-item-group v-model="activeChat">
-                    <template v-for="(item, index) in parents">
-                      <v-list-item
-                        :key="`parent${index}`"
-                        :value="item.id"
-                      >
-                        <v-list-item-avatar color="grey lighten-1 white--text">
-                          <v-icon>
-                            mdi-account
-                          </v-icon>
-                        </v-list-item-avatar>
-                        <v-list-item-content>
-                          <v-list-item-title v-text="item.title"></v-list-item-title>
-                          <v-list-item-subtitle v-text="'hello'"></v-list-item-subtitle>
-                        </v-list-item-content>
-                      </v-list-item>
-                      <v-divider
-                        :key="`chatDivider${index}`"
-                        class="my-0"
-                      ></v-divider>
-                    </template>
-                  </v-list-item-group>
-                </v-list>
-              </v-responsive>
-            </v-col>
-            <v-col
-            cols="auto"
+      <v-container class="pa-0 ma-0">
+        <v-row class="no-gutters elevation-4">
+          <v-col
+            cols="12"
+            sm="3"
             class="flex-grow-1 flex-shrink-0"
+            style="border-right: 1px solid #0000001f"
+          >
+            <v-responsive class="overflow-y-auto fill-height">
+              <v-list subheader>
+                <v-list-item-group v-model="activeChat">
+                  <template v-for="(item, index) in chats">
+                    <v-list-item :key="item.whatsappNumber" :value="item">
+                      <v-list-item-avatar color="grey lighten-1 white--text">
+                        <v-icon> mdi-account </v-icon>
+                      </v-list-item-avatar>
+                      <v-list-item-content>
+                        <v-list-item-title
+                          v-text="item.profileName"
+                        ></v-list-item-title>
+                        <v-list-item-subtitle
+                          v-text="getWhatsappNumber(item.whatsappNumber)"
+                        ></v-list-item-subtitle>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-divider
+                      :key="`chatDivider${index}`"
+                      class="my-0"
+                    ></v-divider>
+                  </template>
+                </v-list-item-group>
+              </v-list>
+            </v-responsive>
+          </v-col>
+          <v-col cols="auto" class="flex-grow-1 flex-shrink-0">
+            <v-responsive
+              v-if="activeChat"
+              class="overflow-y-hidden fill-height"
+              height="600"
             >
-              <v-responsive
-                v-if="activeChat"
-                class="overflow-y-hidden fill-height"
-                height="600"
-              >
-                <v-card
-                  flat
-                  class="d-flex flex-column fill-height"
-                >
-                  <v-card-title>
-                    john doe
-                  </v-card-title>
-                  <v-divider></v-divider>
-                  <v-card height="450">
-                        <div>
-                          <ul class="pages">
-                            <li class="chat page">
-                              <div class="chatArea">
-                                <ul ref="messages" class="messages">
-                                  <li v-for="(msg, index) in messages" :key="index" class="message">
-                                    <i :title="msg.date">
-                                      {{ msg.date.split('T')[1].slice(0, -5) }}
-                                    </i>: {{ msg.text }}
-                                  </li>
-                                </ul>
-                              </div>
+              <v-card flat class="d-flex flex-column fill-height">
+                <v-card-title> {{ getActiveChatUserName() }} </v-card-title>
+                <v-divider></v-divider>
+                <v-card height="450">
+                  <div>
+                    <ul class="pages">
+                      <li class="chat page">
+                        <div class="chatArea">
+                          <ul ref="messages" class="messages">
+                            <li
+                              v-for="(msg, index) in filteredMessages"
+                              :key="index"
+                              :class="{
+                                supportMsg: msg.owner === 'support',
+                                message: true,
+                                test: true,
+                              }"
+                            >
+                              <i :title="msg.date">
+                                {{ getDateInfo(msg.date) }} </i
+                              >: {{ msg.text }}
                             </li>
                           </ul>
                         </div>
-                    </v-card>
-                      <input
-                              v-model="message"
-                              class="inputMessage" 
-                              type="text" 
-                              @keyup.enter="sendMessage"
-                              placeholder="Type here..."
-                              filled
-                              outlined
-                            >
+                      </li>
+                    </ul>
+                  </div>
                 </v-card>
-              </v-responsive>
-            </v-col>
-          </v-row>
-        </v-container>
+                <input
+                  v-model="message"
+                  class="inputMessage"
+                  type="text"
+                  placeholder="Type here..."
+                  filled
+                  outlined
+                  @keyup.enter="sendMessage"
+                />
+              </v-card>
+            </v-responsive>
+          </v-col>
+        </v-row>
+      </v-container>
     </v-app>
-</div>
+  </div>
 </template>
  
 <script>
+/* eslint-disable no-console */
 import socket from '~/plugins/socket.io.js'
 export default {
-  asyncData () {
-    return new Promise(resolve =>
-      socket.emit('last-messages', messages => resolve({ messages }))
-    )
-  },
-  data () {
+  data() {
     return {
-        message: '',
-        activeChat: 1,
-        parents: [
-      {
-        id: 1,
-        title: "john doe",
-        active: true
-      },
-      {
-        id: 2,
-        title: "scarlett",
-        active: false
-      },
-      {
-        id: 3,
-        title: "scarlett",
-        active: false
-      } 
-    ],
+      message: '',
+      messages: [],
+      chats: [],
+      activeChat: null,
     }
   },
-  
+
   computed: {
     icon() {
       return this.icons[this.iconIndex]
     },
+    filteredMessages() {
+      if (!this.activeChat) return []
+      return this.messages.filter(
+        (m) => m.whatsappNumber === this.activeChat.whatsappNumber
+      )
+    },
   },
   watch: {
-    messages: 'scrollToBottom'
+    messages: 'scrollToBottom',
   },
-  beforeMount () {
-    socket.on('new-message', (message) => {
-      this.messages.push(message)
+  beforeMount() {
+    socket.on('msg', (message) => {
+      this.pushToMessages(message)
+    })
+    socket.on('last-messages', (arr) => {
+      console.log('last-messages', arr)
+      arr.forEach((x) => {
+        x.date = x.date || x.createdAt
+      })
+      this.pushToMessages(...arr)
     })
   },
-  
-  mounted () {
+
+  mounted() {
+    window.test = this
     this.scrollToBottom()
+    socket.emit('register-token', window.MemberStack.getToken())
   },
 
   methods: {
+    pushToMessages(...arr) {
+      console.log('push to messages', ...arr)
+      for (const m of arr) {
+        const exist = this.chats.find(
+          (ch) => ch.whatsappNumber === m.whatsappNumber
+        )
+        if (!exist) {
+          this.chats.push(m)
+        }
+        this.messages.push(m)
+      }
+    },
+    getActiveChatUserName() {
+      if (!this.chats || !this.chats.length) return 'no chats'
+      return this.activeChat ? this.activeChat.profileName : 'no selected chat'
+    },
+    getWhatsappNumber(whNumber) {
+      if (!whNumber || !whNumber.length) return ''
+      return whNumber.substring(whNumber.indexOf(':') + 1)
+    },
+    getDateInfo(dt) {
+      if (!dt) return 'no date'
+      dt = new Date(dt)
+      if (isNaN(dt.getTime())) dt = new Date()
+      return dt.toLocaleString()
+    },
     sendMessage() {
-      if (!this.message.trim()) { return }
+      if (!this.message.trim()) {
+        return
+      }
       const message = {
         date: new Date().toJSON(),
-        text: this.message.trim()
+        text: this.message.trim(),
+        whatsappNumber: this.activeChat.whatsappNumber,
+        profileName: this.activeChat.profileName,
+        accountSid: this.activeChat.accountSid,
+        owner: 'support',
       }
-      this.messages.push(message)
+      this.pushToMessages(message)
       this.message = ''
-      socket.emit('send-message', message)
+      socket.emit('msg', message)
     },
-    scrollToBottom () {
+    scrollToBottom() {
       this.$nextTick(() => {
-        this.$refs.messages.scrollTop = this.$refs.messages.scrollHeight
+        if (this.$refs && this.$refs.messages)
+          this.$refs.messages.scrollTop = this.$refs.messages.scrollHeight
       })
     },
   },
 }
 </script>
-
-<style>
+<style scoped>
+.supportMsg {
+  text-align: right;
+}
+</style>
+<style scoped>
 * {
   box-sizing: border-box;
 }
@@ -169,17 +198,13 @@ html {
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
 }
-html, input {
-  font-family:
-    "HelveticaNeue-Light",
-    "Helvetica Neue Light",
-    "Helvetica Neue",
-    Helvetica,
-    Arial,
-    "Lucida Grande",
-    sans-serif;
+html,
+input {
+  font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue',
+    Helvetica, Arial, 'Lucida Grande', sans-serif;
 }
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -188,7 +213,9 @@ ul {
   list-style: none;
   word-wrap: break-word;
 }
-ul li { padding: 0.5rem 1rem; }
+ul li {
+  padding: 0.5rem 1rem;
+}
 /* Pages */
 .pages {
   height: 100%;
@@ -226,7 +253,7 @@ ul li { padding: 0.5rem 1rem; }
   padding: 10px 20px 10px 20px;
 }
 .inputMessage {
-  border: 3px solid #3B8070;
+  border: 10px solid #3b8070;
   bottom: 0;
   height: 60px;
   left: 0;

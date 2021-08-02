@@ -1,6 +1,6 @@
 // import colors from 'vuetify/es5/util/colors'
 
-module.exports = {
+export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - saletastic-admin-front',
@@ -52,7 +52,7 @@ module.exports = {
   ],
 
   env: {
-    WS_URL: process.env.WS_URL || 'http://localhost:5000'
+    WS_URL: process.env.WS_URL || 'https://saletastic-admin-server.herokuapp.com/'
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -60,7 +60,7 @@ module.exports = {
     proxy:true
   },
   proxy: {
-    '/api/': { target: 'http://localhost:4000/api', pathRewrite: {'^/api/': ''} }
+    '/api/': { target: 'https://saletastic-admin-server.herokuapp.com/api', pathRewrite: {'^/api/': ''} }
   },
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
