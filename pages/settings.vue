@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Shopify Settings</h2>
-    <v-form ref="form" class="mb-4">
+    <v-form ref="form" class="mb-4" autocomplete="off">
       <v-text-field
         v-model="settings.shopify.storeMyShopify"
         label="shopify admin url"
@@ -44,12 +44,7 @@
     </v-form>
 
     <h2>Twilio Settings</h2>
-    <v-form ref="form" lazy-validation>
-      <v-text-field
-        v-model="settings.twilio.joinWord"
-        label="how to join"
-        required
-      ></v-text-field>
+    <v-form ref="form" lazy-validation autocomplete="off">
       <v-text-field
         v-model="settings.twilio.accountSid"
         label="Account SID"
@@ -57,6 +52,7 @@
       ></v-text-field>
       <v-text-field
         v-model="settings.twilio.authToken"
+        type="password"
         label="Token"
         required
       ></v-text-field>
@@ -68,20 +64,50 @@
   </div>
 </template>
 <script>
+/* eslint-disable no-console */
 export default {
   data: () => ({
     settings: {
+      memberstackId: '',
       twilio: {},
       shopify: {},
     },
   }),
+  created() {
+    this.loadSettings()
+  },
   mounted() {
     window.test = this
+    this.loadSettings()
   },
   methods: {
-    saveTwilio() {},
+    loadSettings() {
+      this.$axios.get('/api/settings').then((res) => {
+        console.log(res)
+        this.settings = (res && res.data) || null
+      })
+    },
+    saveTwilio() {
+      this.$axios
+        .$post('api/settings/twilio', this.settings.twilio)
+        .then(() => {
+          alert('twilio settings saved')
+        })
+        .catch(() => {
+          alert('error on saving')
+        })
+    },
     reloadTwilio() {},
-    saveShopify() {},
+    saveShopify() {
+      this.$axios
+        .$post('api/settings/shopify', this.settings.shopify)
+        .then(() => {
+          alert('shopify settings saved')
+        })
+        .catch(() => {
+          alert('error on saving')
+        })
+    },
     reloadShopify() {},
   },
 }
