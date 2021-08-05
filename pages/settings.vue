@@ -84,7 +84,7 @@ export default {
     loadSettings() {
       this.$axios.get('/api/settings').then((res) => {
         console.log(res)
-        this.settings = (res && res.data) || null
+        if (res && res.data) this.settings = res.data
       })
     },
     saveTwilio() {
