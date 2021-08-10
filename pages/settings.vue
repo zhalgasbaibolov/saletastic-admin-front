@@ -111,7 +111,9 @@ export default {
   },
   methods: {
     removeProtocol(str) {
-      return str && str.startsWith('http') ? new URL(str).host : str
+      return str && str.startsWith('http')
+        ? new URL(str).host
+        : str.replaceAll('/', '')
     },
     removeNotDigits(str) {
       return str ? str.replaceAll(/\D/g, '') : str
@@ -123,9 +125,6 @@ export default {
       })
     },
     saveTwilio() {
-      this.settings.shopify.externalUrl = this.removeProtocol(
-        this.settings.shopify.externalUrl
-      )
       this.settings.twilio.senderNumber = this.removeNotDigits(
         this.settings.twilio.senderNumber
       )
@@ -140,6 +139,9 @@ export default {
     },
     reloadTwilio() {},
     saveShopify() {
+      this.settings.shopify.externalUrl = this.removeProtocol(
+        this.settings.shopify.externalUrl
+      )
       this.$axios
         .$post('api/settings/shopify', this.settings.shopify)
         .then(() => {
