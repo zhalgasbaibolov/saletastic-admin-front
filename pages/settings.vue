@@ -95,7 +95,16 @@ export default {
     loadSettings() {
       this.$axios.get('/api/settings').then((res) => {
         console.log(res)
-        if (res && res.data) this.settings = res.data
+        if (res && res.data) {
+          const settings = res.data
+          settings.twilio.senderNumber =
+            settings.twilio.senderNumber.replaceAll(/\D/g, '')
+          settings.twilio.joinWord = settings.twilio.joinWord.replace(
+            'join ',
+            ''
+          )
+          this.settings = settings
+        }
       })
     },
     saveTwilio() {
