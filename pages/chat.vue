@@ -73,7 +73,7 @@
                   v-model="message"
                   class="inputMessage"
                   type="text"
-                  placeholder="Type here..."
+                  placeholder="Type and hit Enter"
                   filled
                   outlined
                   @keyup.enter="sendMessage"
