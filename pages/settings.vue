@@ -108,8 +108,8 @@ export default {
           alert('error on saving')
         })
     },
-    reloadTwilio() {},
     saveShopify() {
+      this.saveTwilio()
       this.settings.shopify.externalUrl = this.removeProtocol(
         this.settings.shopify.externalUrl
       )
@@ -122,7 +122,6 @@ export default {
           alert('error on saving')
         })
     },
-    reloadShopify() {},
   },
 }
 </script>
