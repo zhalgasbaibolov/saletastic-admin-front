@@ -53,8 +53,9 @@
         v-model="settings.twilio.joinWord"
         label="Join word"
         required
+        outlined
       >
-        <h3 slot="prepend">join</h3>
+        <h3 slot="prepend">Join</h3>
       </v-text-field>
       <v-btn color="primary" class="mr-4" @click="saveShopify">
         Save changes
