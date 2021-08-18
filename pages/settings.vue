@@ -1,15 +1,16 @@
 <template>
   <div style="padding-bottom: 80px">
-    <h2>Settings</h2>
+    <h2 style="margin-bottom: 10px">Shopify Settings</h2>
     <v-form ref="form" class="mb-4" autocomplete="off">
       <v-text-field
         v-model="settings.shopify.storeMyShopify"
-        label="shopify admin url"
+        label="Shopify admin URL"
         required
+        outlined
       ></v-text-field>
       <v-text-field
         v-model="settings.shopify.externalUrl"
-        label="shopify store url"
+        label="Shopify store URL"
         required
         outlined
       ></v-text-field>
@@ -17,18 +18,20 @@
         v-model="settings.shopify.storeAPIkey"
         label="Store API admin key"
         required
+        outlined
       ></v-text-field>
       <v-text-field
         v-model="settings.shopify.storePassword"
         label="Store API admin secret"
         required
+        outlined
       ></v-text-field>
       <v-text-field
         v-model="settings.shopify.accessToken"
         label="Store API access token"
         required
+        outlined
       ></v-text-field>
-
       <!-- <v-select
         v-model="select"
         :hint="`${select.state}, ${select.abbr}`"
@@ -42,12 +45,13 @@
       ></v-select> -->
       <v-text-field
         v-model="settings.shopify.priceRuleId"
-        label="price rule id"
+        label="Price rule id"
         required
+        outlined
       ></v-text-field>
       <v-text-field
         v-model="settings.twilio.joinWord"
-        label="join word"
+        label="Join word"
         required
       >
         <h3 slot="prepend">join</h3>
