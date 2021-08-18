@@ -38,6 +38,14 @@
             <h3 data-ms-member="email"></h3>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item to="/">
+          <v-list-item-action>
+            <v-icon>mdi-home</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="`Main page`" />
+          </v-list-item-content>
+        </v-list-item>
         <v-list-item to="#/ms/profile" data-ms-content="members">
           <v-list-item-action>
             <v-icon>mdi-apps</v-icon>
