@@ -48,7 +48,9 @@
         v-model="settings.twilio.joinWord"
         label="join word"
         required
-      ></v-text-field>
+      >
+        <h3 slot="prepend">join</h3>
+      </v-text-field>
       <v-btn color="primary" class="mr-4" @click="saveShopify">
         Save changes
       </v-btn>
@@ -96,9 +98,12 @@ export default {
       })
     },
     saveTwilio() {
-      this.settings.twilio.senderNumber = this.removeNotDigits(
-        this.settings.twilio.senderNumber
-      )
+      this.settings.twilio.senderNumber =
+        'whatsapp:+' + this.removeNotDigits(this.settings.twilio.senderNumber)
+
+      this.settings.twilio.joinWord =
+        'join ' + this.settings.twilio.joinWord.replace('join ', '')
+
       this.$axios
         .$post('api/settings/twilio', this.settings.twilio)
         .then(() => {
