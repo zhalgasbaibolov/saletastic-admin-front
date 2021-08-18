@@ -11,6 +11,7 @@
         v-model="settings.shopify.externalUrl"
         label="shopify store url"
         required
+        outlined
       ></v-text-field>
       <v-text-field
         v-model="settings.shopify.storeAPIkey"

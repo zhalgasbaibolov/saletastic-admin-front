@@ -6,7 +6,7 @@
           <ul ref="messages" class="messages">
             <li v-for="(msg, index) in messages" :key="index" class="message">
               <i :title="msg.date">
-                {{ msg.date.split('T')[1].slice(0, -2) }}
+                {{ msg.date.split('T')[1].slice(0, -5) }}
               </i>: {{ msg.text }}
             </li>
           </ul>
