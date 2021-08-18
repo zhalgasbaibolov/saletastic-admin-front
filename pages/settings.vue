@@ -84,7 +84,7 @@ export default {
     removeProtocol(str) {
       return str && str.startsWith('http')
         ? new URL(str).host
-        : str.replaceAll('/', '')
+        : str.split('/')[0]
     },
     removeNotDigits(str) {
       return str ? str.replaceAll(/\D/g, '') : str
