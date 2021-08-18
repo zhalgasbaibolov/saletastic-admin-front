@@ -15,7 +15,7 @@
           stroke-linecap="round"
           smooth
         >
-          <template v-slot:label="item">
+          <template #label="item">
             ${{ item.value }}
           </template>
         </v-sparkline>
