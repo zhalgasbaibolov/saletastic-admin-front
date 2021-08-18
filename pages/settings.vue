@@ -1,15 +1,16 @@
 <template>
   <div style="padding-bottom: 80px">
-    <h2>Shopify Settings</h2>
+    <h2 style="margin-bottom: 10px">Shopify Settings</h2>
     <v-form ref="form" class="mb-4" autocomplete="off">
       <v-text-field
         v-model="settings.shopify.storeMyShopify"
-        label="shopify admin url"
+        label="Shopify admin URL"
         required
+        outlined
       ></v-text-field>
       <v-text-field
         v-model="settings.shopify.externalUrl"
-        label="shopify store url"
+        label="Shopify store URL"
         required
         outlined
       ></v-text-field>
@@ -17,23 +18,27 @@
         v-model="settings.shopify.storeAPIkey"
         label="Store API admin key"
         required
+        outlined
       ></v-text-field>
       <v-text-field
         v-model="settings.shopify.storePassword"
         label="Store API admin secret"
         required
+        outlined
       ></v-text-field>
       <v-text-field
         v-model="settings.shopify.accessToken"
         label="Store API access token"
         required
+        outlined
       ></v-text-field>
       <v-text-field
         v-model="settings.shopify.apiVersion"
-        label="api version"
+        label="API version"
         required
+        outlined
       ></v-text-field>
-      <v-select
+      <!-- <v-select
         v-model="select"
         :hint="`${select.state}, ${select.abbr}`"
         :items="items"
@@ -43,11 +48,12 @@
         persistent-hint
         return-object
         single-line
-      ></v-select>
+      ></v-select> -->
       <v-text-field
         v-model="settings.shopify.priceRuleId"
-        label="price rule id"
+        label="Price rule id"
         required
+        outlined
       ></v-text-field>
       <v-btn color="primary" class="mr-4" @click="saveShopify">
         Save changes
@@ -55,28 +61,32 @@
       <v-btn @click="reloadShopify"> Reload </v-btn>
     </v-form>
 
-    <h2>Twilio Settings</h2>
+    <h2 style="margin-bottom: 10px">Twilio Settings</h2>
     <v-form ref="form" lazy-validation autocomplete="off">
       <v-text-field
         v-model="settings.twilio.joinWord"
-        label="join word"
+        label="Join word"
         required
+        outlined
       ></v-text-field>
       <v-text-field
         v-model="settings.twilio.senderNumber"
-        label="sender number"
+        label="Sender number"
         required
+        outlined
       ></v-text-field>
       <v-text-field
         v-model="settings.twilio.accountSid"
         label="Account SID"
         required
+        outlined
       ></v-text-field>
       <v-text-field
         v-model="settings.twilio.authToken"
         type="password"
         label="Token"
         required
+        outlined
       ></v-text-field>
       <v-btn color="primary" class="mr-4" @click="saveTwilio">
         Save changes
