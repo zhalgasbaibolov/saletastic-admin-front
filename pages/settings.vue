@@ -61,22 +61,6 @@
         label="join word"
         required
       ></v-text-field>
-      <v-text-field
-        v-model="settings.twilio.senderNumber"
-        label="sender number"
-        required
-      ></v-text-field>
-      <v-text-field
-        v-model="settings.twilio.accountSid"
-        label="Account SID"
-        required
-      ></v-text-field>
-      <v-text-field
-        v-model="settings.twilio.authToken"
-        type="password"
-        label="Token"
-        required
-      ></v-text-field>
       <v-btn color="primary" class="mr-4" @click="saveTwilio">
         Save changes
       </v-btn>
