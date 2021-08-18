@@ -32,12 +32,6 @@
         required
         outlined
       ></v-text-field>
-      <v-text-field
-        v-model="settings.shopify.apiVersion"
-        label="API version"
-        required
-        outlined
-      ></v-text-field>
       <!-- <v-select
         v-model="select"
         :hint="`${select.state}, ${select.abbr}`"
@@ -55,43 +49,16 @@
         required
         outlined
       ></v-text-field>
-      <v-btn color="primary" class="mr-4" @click="saveShopify">
-        Save changes
-      </v-btn>
-      <v-btn @click="reloadShopify"> Reload </v-btn>
-    </v-form>
-
-    <h2 style="margin-bottom: 10px">Twilio Settings</h2>
-    <v-form ref="form" lazy-validation autocomplete="off">
       <v-text-field
         v-model="settings.twilio.joinWord"
         label="Join word"
         required
-        outlined
-      ></v-text-field>
-      <v-text-field
-        v-model="settings.twilio.senderNumber"
-        label="Sender number"
-        required
-        outlined
-      ></v-text-field>
-      <v-text-field
-        v-model="settings.twilio.accountSid"
-        label="Account SID"
-        required
-        outlined
-      ></v-text-field>
-      <v-text-field
-        v-model="settings.twilio.authToken"
-        type="password"
-        label="Token"
-        required
-        outlined
-      ></v-text-field>
-      <v-btn color="primary" class="mr-4" @click="saveTwilio">
+      >
+        <h3 slot="prepend">join</h3>
+      </v-text-field>
+      <v-btn color="primary" class="mr-4" @click="saveShopify">
         Save changes
       </v-btn>
-      <v-btn @click="reloadTwilio"> Reload </v-btn>
     </v-form>
   </div>
 </template>
@@ -124,7 +91,7 @@ export default {
     removeProtocol(str) {
       return str && str.startsWith('http')
         ? new URL(str).host
-        : str.replaceAll('/', '')
+        : str.split('/')[0]
     },
     removeNotDigits(str) {
       return str ? str.replaceAll(/\D/g, '') : str
@@ -132,13 +99,25 @@ export default {
     loadSettings() {
       this.$axios.get('/api/settings').then((res) => {
         console.log(res)
-        if (res && res.data) this.settings = res.data
+        if (res && res.data) {
+          const settings = res.data
+          settings.twilio.senderNumber =
+            settings.twilio.senderNumber.replaceAll(/\D/g, '')
+          settings.twilio.joinWord = settings.twilio.joinWord.replace(
+            'join ',
+            ''
+          )
+          this.settings = settings
+        }
       })
     },
     saveTwilio() {
-      this.settings.twilio.senderNumber = this.removeNotDigits(
-        this.settings.twilio.senderNumber
-      )
+      this.settings.twilio.senderNumber =
+        'whatsapp:+' + this.removeNotDigits(this.settings.twilio.senderNumber)
+
+      this.settings.twilio.joinWord =
+        'join ' + this.settings.twilio.joinWord.replace('join ', '')
+
       this.$axios
         .$post('api/settings/twilio', this.settings.twilio)
         .then(() => {
@@ -148,8 +127,8 @@ export default {
           alert('error on saving')
         })
     },
-    reloadTwilio() {},
     saveShopify() {
+      this.saveTwilio()
       this.settings.shopify.externalUrl = this.removeProtocol(
         this.settings.shopify.externalUrl
       )
@@ -162,7 +141,6 @@ export default {
           alert('error on saving')
         })
     },
-    reloadShopify() {},
   },
 }
 </script>

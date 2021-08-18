@@ -1,3 +1,6 @@
+/* eslint-disable nuxt/no-cjs-in-config */
+
+
 const colors =require('vuetify/es5/util/colors')
 
 module.exports = {
