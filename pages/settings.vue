@@ -40,6 +40,7 @@
         return-object
         single-line
       ></v-select> -->
+
       <v-text-field
         v-model="settings.shopify.priceRuleId"
         label="price rule id"
@@ -58,6 +59,7 @@
     </v-form>
   </div>
 </template>
+
 <script>
 /* eslint-disable no-console */
 export default {
@@ -66,6 +68,7 @@ export default {
       memberstackId: '',
       twilio: {},
       shopify: {},
+      sandboxUser: true,
     },
     select: { state: 'Florida', abbr: 'FL' },
     items: [
@@ -108,16 +111,17 @@ export default {
       })
     },
     saveTwilio() {
-      this.settings.twilio.senderNumber =
-        'whatsapp:+' + this.removeNotDigits(this.settings.twilio.senderNumber)
+      const twilioSettings = { ...this.settings.twilio }
+      twilioSettings.senderNumber =
+        'whatsapp:+' + this.removeNotDigits(twilioSettings.senderNumber)
 
-      this.settings.twilio.joinWord =
-        'join ' + this.settings.twilio.joinWord.replace('join ', '')
+      twilioSettings.joinWord =
+        'join ' + twilioSettings.joinWord.replace('join ', '')
 
       this.$axios
-        .$post('api/settings/twilio', this.settings.twilio)
+        .$post('api/settings/twilio', twilioSettings)
         .then(() => {
-          alert('twilio settings saved')
+          console.log('twilio settings saved')
         })
         .catch(() => {
           alert('error on saving')
@@ -131,7 +135,8 @@ export default {
       this.$axios
         .$post('api/settings/shopify', this.settings.shopify)
         .then(() => {
-          alert('shopify settings saved')
+          console.log('shopify settings saved')
+          alert('success')
         })
         .catch(() => {
           alert('error on saving')
