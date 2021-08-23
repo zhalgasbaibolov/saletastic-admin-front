@@ -70,6 +70,14 @@
             <v-list-item-title v-text="`Chat`" />
           </v-list-item-content>
         </v-list-item>
+        <v-list-item to="/smsmailing" data-ms-content="members">
+          <v-list-item-action>
+            <v-icon>mdi-email</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="`SMS Mailing`" />
+          </v-list-item-content>
+        </v-list-item>
         <v-list-item to="#/ms/logout" data-ms-content="members">
           <v-list-item-action>
             <v-icon>mdi-apps</v-icon>
