@@ -112,6 +112,7 @@
 </template>
 
 <script>
+/* eslint-disable no-console */
 export default {
   data: () => ({
     tab: null,
@@ -153,6 +154,13 @@ export default {
       },
     ],
   }),
+  mounted() {
+    window.test = this
+    this.$axios
+      .post('/api/shopify/getinfo')
+      .then((res) => console.log('/api/shopify/getinfo', res))
+      .catch((err) => console.log('/api/shopify/getinfo', err))
+  },
 }
 </script>
 
