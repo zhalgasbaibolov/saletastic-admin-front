@@ -64,7 +64,7 @@ module.exports = {
   },
   proxy: {
     '/api/': { target: 'https://saletastic-admin-server.herokuapp.com/api', pathRewrite: {'^/api/': ''} },
-    '/login': { target: 'https://saletastic-admin-server.herokuapp.com/login'}
+    '/login': { target: 'https://saletastic-admin-server.herokuapp.com/login', pathRewrite: {'^/login': ''} }
   },
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
