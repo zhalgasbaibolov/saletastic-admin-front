@@ -30,12 +30,12 @@
           >
             <template #activator="{ on, attrs }">
               <v-btn
-                color="red lighten-2 "
+                color="blue"
                 dark
-                v-bind="attrs"
-                v-on="on"
                 height="50"
                 width="300"
+                v-bind="attrs"
+                v-on="on"
                 
               >
                 Send message
@@ -51,6 +51,7 @@
                 outlined
                 name="input-7-4"
                 label="Message area"
+                
               ></v-textarea>
       
               <v-divider></v-divider>
@@ -108,6 +109,51 @@ export default {
           name: '+77075002033',
           source: 'from Whatsapp DB'
         },
+        {
+          name: '+77075002045',
+          source: 'from Whatsapp DB'
+        },
+        {
+          name: '+77075002078',
+          source: 'from Shopify DB'
+        },
+        {
+          name: '+77075002077',
+          source: 'from Whatsapp DB'
+        },
+        {
+          name: '+77075002001',
+          source: 'from Whatsapp DB'
+        },
+        {
+          name: '+77075002758',
+          source: 'from Shopify DB'
+        },
+        {
+          name: '+77075002458',
+          source: 'from Whatsapp DB'
+        },
+        {
+          name: '+77075001478',
+          source: 'from Whatsapp DB'
+        },
+        {
+          name: '+77077892045',
+          source: 'from Whatsapp DB'
+        },
+        {
+          name: '+77077832078',
+          source: 'from Shopify DB'
+        },
+        {
+          name: '+77071472077',
+          source: 'from Whatsapp DB'
+        },
+        {
+          name: '+77073332001',
+          source: 'from Whatsapp DB'
+        },
+        
       ],
     }
     }
