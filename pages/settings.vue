@@ -115,6 +115,9 @@ export default {
           console.log(res)
           if (res && res.data) {
             const settings = res.data || {}
+            settings.twilio = settings.twilio || {}
+            settings.shopify = settings.shopify || {}
+
             if (settings.twilio && settings.twilio.senderNumber)
               settings.twilio.senderNumber =
                 settings.twilio.senderNumber.replaceAll(/\D/g, '')
@@ -123,8 +126,6 @@ export default {
                 'join ',
                 ''
               )
-            settings.twilio = settings.twilio || {}
-            settings.shopify = settings.shopify || {}
 
             this.settings = settings
           }
