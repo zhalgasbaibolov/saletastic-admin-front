@@ -51,8 +51,7 @@
         outlined
       ></v-text-field>
 
-      
-    <v-divider style="padding-bottom: 30px"></v-divider>
+      <v-divider style="padding-bottom: 30px"></v-divider>
       <v-text-field
         v-model="settings.twilio.joinWord"
         label="Join word"
@@ -108,6 +107,7 @@ export default {
           )
           this.settings = settings
         }
+        this.$store.dispatch('shopify/loadShopifyInfo')
       })
     },
     saveTwilio() {
