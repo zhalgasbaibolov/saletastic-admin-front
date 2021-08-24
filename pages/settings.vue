@@ -115,12 +115,14 @@ export default {
           console.log(res)
           if (res && res.data) {
             const settings = res.data
-            settings.twilio.senderNumber =
-              settings.twilio.senderNumber.replaceAll(/\D/g, '')
-            settings.twilio.joinWord = settings.twilio.joinWord.replace(
-              'join ',
-              ''
-            )
+            if (settings.twilio && settings.twilio.senderNumber)
+              settings.twilio.senderNumber =
+                settings.twilio.senderNumber.replaceAll(/\D/g, '')
+            if (settings.twilio && settings.twilio.joinWord)
+              settings.twilio.joinWord = settings.twilio.joinWord.replace(
+                'join ',
+                ''
+              )
             this.settings = settings
           }
         })
@@ -146,8 +148,8 @@ export default {
     },
     saveShopify() {
       this.saveTwilio()
-      
-    /*
+
+      /*
       if (this.settings.shopify && this.settings.shopify.externalUrl)
         this.settings.shopify.externalUrl = this.removeProtocol(
           this.settings.shopify.externalUrl
