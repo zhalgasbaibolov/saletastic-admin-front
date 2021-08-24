@@ -75,7 +75,7 @@
             <v-icon>mdi-email</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title v-text="`SMS Mailing`" />
+            <v-list-item-title v-text="`SMS Marketing`" />
           </v-list-item-content>
         </v-list-item>
         <v-list-item to="#/ms/logout" data-ms-content="members">
