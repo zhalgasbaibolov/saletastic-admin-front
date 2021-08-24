@@ -10,11 +10,11 @@
       <v-list>
         <v-list-item data-ms-content="!members">
           <v-list-item-action>
-            <v-icon>mdi-apps</v-icon>
+            <v-icon  color="green darken-2">mdi-account-plus</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-btn
-              color="primary"
+               color="primary"
               data-ms-membership="60f7b76fc2135000047acf81"
             >
               sign up
@@ -23,7 +23,7 @@
         </v-list-item>
         <v-list-item to="#/ms/login" data-ms-content="!members">
           <v-list-item-action>
-            <v-icon>mdi-apps</v-icon>
+            <v-icon  color="blue darken-2">mdi-login</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title v-text="`Sign In`" />
@@ -32,7 +32,7 @@
 
         <v-list-item to="#" data-ms-content="members">
           <v-list-item-action>
-            <v-icon>mdi-account</v-icon>
+            <v-icon  color="green darken-2">mdi-account</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <h3 data-ms-member="email"></h3>
@@ -40,7 +40,7 @@
         </v-list-item>
         <v-list-item to="/">
           <v-list-item-action>
-            <v-icon>mdi-home</v-icon>
+            <v-icon  color="red darken-2">mdi-home</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title v-text="`Main page`" />
@@ -48,7 +48,7 @@
         </v-list-item>
         <v-list-item to="#/ms/profile" data-ms-content="members">
           <v-list-item-action>
-            <v-icon>mdi-apps</v-icon>
+            <v-icon  color="purple darken-2">mdi-apps</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title v-text="`Profile`" />
@@ -56,7 +56,7 @@
         </v-list-item>
         <v-list-item to="settings" data-ms-content="members">
           <v-list-item-action>
-            <v-icon>mdi-cog</v-icon>
+            <v-icon  color="teal darken-2">mdi-cog</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title v-text="`Settings`" />
@@ -64,7 +64,7 @@
         </v-list-item>
         <v-list-item to="/chat" data-ms-content="members">
           <v-list-item-action>
-            <v-icon>mdi-chat</v-icon>
+            <v-icon  color="blue-grey darken-2">mdi-chat</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title v-text="`Chat`" />
@@ -72,7 +72,7 @@
         </v-list-item>
         <v-list-item to="/smsmailing" data-ms-content="members">
           <v-list-item-action>
-            <v-icon>mdi-email</v-icon>
+            <v-icon  color="orange darken-2">mdi-email</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title v-text="`SMS Marketing`" />
@@ -80,7 +80,7 @@
         </v-list-item>
         <v-list-item to="#/ms/logout" data-ms-content="members">
           <v-list-item-action>
-            <v-icon>mdi-apps</v-icon>
+            <v-icon  color="red darken-2">mdi-logout</v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title v-text="`Sign Out`" />
