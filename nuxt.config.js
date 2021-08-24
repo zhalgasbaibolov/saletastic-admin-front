@@ -31,7 +31,8 @@ module.exports = {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '~/plugins/memberstack.client.js'
+    '~/plugins/memberstack.client.js',
+    '~/plugins/axios.client.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -63,7 +64,8 @@ module.exports = {
     proxy:true
   },
   proxy: {
-    '/api/': { target: 'https://saletastic-admin-server.herokuapp.com/api', pathRewrite: {'^/api/': ''} }
+    '/api/': { target: 'https://saletastic-admin-server.herokuapp.com/api', pathRewrite: {'^/api/': ''} },
+    '/login': { target: 'https://saletastic-admin-server.herokuapp.com/login', pathRewrite: {'^/login': ''} }
   },
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
