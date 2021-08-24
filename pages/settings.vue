@@ -69,9 +69,7 @@
       >
         <h3 slot="prepend">Join</h3>
       </v-text-field>
-      <v-btn color="primary" class="mr-4" @click="saveShopify">
-        Save changes
-      </v-btn>
+      <v-btn color="primary" class="mr-4" @click="save"> Save changes </v-btn>
     </v-form>
   </div>
 </template>
@@ -132,7 +130,7 @@ export default {
         })
       })
     },
-    saveTwilio() {
+    save() {
       const twilioSettings = { ...this.settings.twilio }
       if (twilioSettings.senderNumber)
         twilioSettings.senderNumber =
@@ -142,17 +140,16 @@ export default {
         'join ' + twilioSettings.joinWord.replace('join ', '')
 
       this.$axios
-        .$post('api/settings/twilio', twilioSettings)
+        .$post('api/settings/save', twilioSettings)
         .then(() => {
           console.log('twilio settings saved')
+          alert('success')
         })
         .catch(() => {
           alert('error on saving')
         })
     },
     saveShopify() {
-      this.saveTwilio()
-
       /*
       if (this.settings.shopify && this.settings.shopify.externalUrl)
         this.settings.shopify.externalUrl = this.removeProtocol(
