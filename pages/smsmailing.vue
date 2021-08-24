@@ -19,7 +19,7 @@
         <v-file-input
           outlined
           accept="/*, .csv"
-          label="File input"
+          label="Import contacts (CSV file only)"
         ></v-file-input>
       </v-col>
       <v-col>
