@@ -73,11 +73,10 @@
                     <v-img :src="item.avatar"></v-img>
                   </v-list-item-avatar>
 
-                  <v-list-item-content>
-                    <v-list-item-title v-html="item.title"></v-list-item-title>
-                    <v-list-item-subtitle
-                      v-html="item.subtitle"
-                    ></v-list-item-subtitle>
+                  <v-list-item-content :value="reviews">
+                    <v-list-item-title>{{ item.title }}</v-list-item-title>
+                    <v-list-item-subtitle>{{ item.subtitle }}</v-list-item-subtitle>
+
                   </v-list-item-content>
                 </v-list-item>
               </template>
@@ -88,7 +87,7 @@
               <v-card-text>
                 <v-sheet color="rgba(0, 0, 0, .12)">
                   <v-sparkline
-                    :value="value"
+                    :value="valueDaily"
                     color="rgba(255, 255, 255, .7)"
                     height="100"
                     padding="24"
@@ -101,7 +100,11 @@
               </v-card-text>
 
               <v-card-text>
-                <div class="text-h4 font-weight-thin">Sales Last 24h</div>
+
+                <div class="text-h4 font-weight-thin">
+                  Last orders
+                </div>
+
               </v-card-text>
             </v-card>
           </v-tab-item>
@@ -127,30 +130,38 @@ export default {
     reviews: [
       {
         avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-        title: `<span class="text--primary">Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?`,
+        title: 'Ali Connors',
+        subtitle: 'I\'ll be in your neighborhood doing errands this weekend. Do you want to hang out?'
       },
       { divider: true, inset: true },
       {
         avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-        title: `<span class="text--primary">to Alex, Scott, Jennifer</span> &mdash; Wish I could come, but I'm out of town this weekend.`,
+        title: 'Alex Scott',
+        subtitle: 'Wish I could come, but I\'m out of town this weekend.'
       },
       { divider: true, inset: true },
       {
         avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',
-        title:
-          '<span class="text--primary">Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?',
+
+        title: 'Sandra Adams',
+        subtitle: 'Do you have Paris recommendations? Have you ever been?'
+
       },
       { divider: true, inset: true },
       {
         avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',
-        title:
-          '<span class="text--primary">Trevor Hansen</span> &mdash; Have any ideas about what we should get Heidi for her birthday?',
+
+        title: 'Trevor Hansen',
+        subtitle: 'Have any ideas about what we should get Heidi for her birthday?'
+
       },
       { divider: true, inset: true },
       {
         avatar: 'https://cdn.vuetifyjs.com/images/lists/5.jpg',
-        title:
-          '<span class="text--primary">Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
+
+        title: 'Britta Holt',
+        subtitle: 'We should eat this: Grate, Squash, Corn, and tomatillo Tacos.'
+
       },
     ],
   }),
