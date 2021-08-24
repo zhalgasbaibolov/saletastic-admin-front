@@ -2,37 +2,46 @@
   <div style="padding-bottom: 80px">
     <h2 style="margin-bottom: 10px">Shopify Settings</h2>
     <v-form ref="form" class="mb-4" autocomplete="off">
-      <v-text-field
-        v-model="settings.shopify.storeMyShopify"
-        label="Shopify admin URL"
-        required
-        outlined
-      ></v-text-field>
-      <v-text-field
-        v-model="settings.shopify.externalUrl"
-        label="Shopify store URL"
-        required
-        outlined
-      ></v-text-field>
-      <v-text-field
-        v-model="settings.shopify.storeAPIkey"
-        label="Store API admin key"
-        required
-        outlined
-      ></v-text-field>
-      <v-text-field
-        v-model="settings.shopify.storePassword"
-        label="Store API admin secret"
-        required
-        outlined
-      ></v-text-field>
-      <v-text-field
-        v-model="settings.shopify.accessToken"
-        label="Store API access token"
-        required
-        outlined
-      ></v-text-field>
-      <!-- <v-select
+      <template v-if="shopifyInfo">
+        <v-text-field
+          v-model="shopifyInfo.domain"
+          label="Shopify Store URL"
+          required
+          outlined
+        ></v-text-field>
+      </template>
+      <template v-else>
+        <v-text-field
+          v-model="settings.shopify.storeMyShopify"
+          label="Shopify admin URL"
+          required
+          outlined
+        ></v-text-field>
+        <v-text-field
+          v-model="settings.shopify.externalUrl"
+          label="Shopify store URL"
+          required
+          outlined
+        ></v-text-field>
+        <v-text-field
+          v-model="settings.shopify.storeAPIkey"
+          label="Store API admin key"
+          required
+          outlined
+        ></v-text-field>
+        <v-text-field
+          v-model="settings.shopify.storePassword"
+          label="Store API admin secret"
+          required
+          outlined
+        ></v-text-field>
+        <v-text-field
+          v-model="settings.shopify.accessToken"
+          label="Store API access token"
+          required
+          outlined
+        ></v-text-field>
+        <!-- <v-select
         v-model="select"
         :hint="`${select.state}, ${select.abbr}`"
         :items="items"
@@ -44,15 +53,14 @@
         single-line
       ></v-select> -->
 
-      <v-text-field
-        v-model="settings.shopify.priceRuleId"
-        label="Price rule id"
-        required
-        outlined
-      ></v-text-field>
-
-      
-    <v-divider style="padding-bottom: 30px"></v-divider>
+        <v-text-field
+          v-model="settings.shopify.priceRuleId"
+          label="Price rule id"
+          required
+          outlined
+        ></v-text-field>
+      </template>
+      <v-divider style="padding-bottom: 30px"></v-divider>
       <v-text-field
         v-model="settings.twilio.joinWord"
         label="Join word"
@@ -70,6 +78,7 @@
 
 <script>
 /* eslint-disable no-console */
+import { mapGetters } from 'vuex'
 export default {
   data: () => ({
     settings: {
@@ -79,6 +88,11 @@ export default {
       sandboxUser: true,
     },
   }),
+  computed: {
+    ...mapGetters({
+      shopifyInfo: 'shopify/getShop',
+    }),
+  },
   created() {
     this.loadSettings()
   },
@@ -96,24 +110,27 @@ export default {
       return str ? str.replaceAll(/\D/g, '') : str
     },
     loadSettings() {
-      this.$axios.get('/api/settings').then((res) => {
-        console.log(res)
-        if (res && res.data) {
-          const settings = res.data
-          settings.twilio.senderNumber =
-            settings.twilio.senderNumber.replaceAll(/\D/g, '')
-          settings.twilio.joinWord = settings.twilio.joinWord.replace(
-            'join ',
-            ''
-          )
-          this.settings = settings
-        }
+      this.$store.dispatch('shopify/loadShopifyInfo').finally(() => {
+        this.$axios.get('/api/settings').then((res) => {
+          console.log(res)
+          if (res && res.data) {
+            const settings = res.data
+            settings.twilio.senderNumber =
+              settings.twilio.senderNumber.replaceAll(/\D/g, '')
+            settings.twilio.joinWord = settings.twilio.joinWord.replace(
+              'join ',
+              ''
+            )
+            this.settings = settings
+          }
+        })
       })
     },
     saveTwilio() {
       const twilioSettings = { ...this.settings.twilio }
-      twilioSettings.senderNumber =
-        'whatsapp:+' + this.removeNotDigits(twilioSettings.senderNumber)
+      if (twilioSettings.senderNumber)
+        twilioSettings.senderNumber =
+          'whatsapp:+' + this.removeNotDigits(twilioSettings.senderNumber)
 
       twilioSettings.joinWord =
         'join ' + twilioSettings.joinWord.replace('join ', '')
@@ -129,9 +146,10 @@ export default {
     },
     saveShopify() {
       this.saveTwilio()
-      this.settings.shopify.externalUrl = this.removeProtocol(
-        this.settings.shopify.externalUrl
-      )
+      if (this.settings.shopify && this.settings.shopify.externalUrl)
+        this.settings.shopify.externalUrl = this.removeProtocol(
+          this.settings.shopify.externalUrl
+        )
       this.$axios
         .$post('api/settings/shopify', this.settings.shopify)
         .then(() => {

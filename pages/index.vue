@@ -167,13 +167,6 @@ export default {
   }),
   mounted() {
     window.test = this
-    this.$axios
-      .post('/api/shopify/getinfo')
-      .then((res) => {
-        console.log('/api/shopify/getinfo', res)
-        this.$store.commit('shopify/setShop', res.data.shop)
-      })
-      .catch((err) => console.log('/api/shopify/getinfo', err))
   },
 }
 </script>
