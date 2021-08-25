@@ -150,6 +150,7 @@ export default {
           alert('error on saving')
         })
     },
+    /*
     saveShopify() {
       if (this.settings.shopify && this.settings.shopify.externalUrl)
         this.settings.shopify.externalUrl = this.removeProtocol(
@@ -164,7 +165,7 @@ export default {
         .catch(() => {
           alert('error on saving')
         })
-    },
+    },*/
   },
 }
 </script>
