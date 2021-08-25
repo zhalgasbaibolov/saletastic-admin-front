@@ -131,7 +131,8 @@ export default {
       })
     },
     save() {
-      const twilioSettings = { ...this.settings.twilio }
+      const settings = JSON.parse(JSON.stringify(this.settings))
+      const twilioSettings = settings.twilio
       if (twilioSettings.senderNumber)
         twilioSettings.senderNumber =
           'whatsapp:+' + this.removeNotDigits(twilioSettings.senderNumber)
@@ -140,7 +141,7 @@ export default {
         'join ' + twilioSettings.joinWord.replace('join ', '')
 
       this.$axios
-        .$post('api/settings/save', twilioSettings)
+        .$post('api/settings/save', settings)
         .then(() => {
           console.log('twilio settings saved')
           alert('success')
