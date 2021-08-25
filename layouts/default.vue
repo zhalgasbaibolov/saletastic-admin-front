@@ -46,7 +46,7 @@
             <v-list-item-title v-text="`Main page`" />
           </v-list-item-content>
         </v-list-item>
-        <v-list-item to="/shopify-login">
+        <v-list-item to="/shopify-login"  style="display: none;">
           <v-list-item-action>
             <v-icon color="red darken-2">mdi-home</v-icon>
           </v-list-item-action>
