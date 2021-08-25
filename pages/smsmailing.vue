@@ -8,7 +8,7 @@
     :headers="headers"
       :items="phoneNumbers"
       :single-select="singleSelect"
-      item-key="name"
+      item-key="number"
       show-select
       class="elevation-1"
     fixed-header
@@ -37,7 +37,6 @@
                 width="300"
                 v-bind="attrs"
                 v-on="on"
-                
               >
                 Send message
               </v-btn>
@@ -47,17 +46,18 @@
                 <v-card-title class="text-h6 grey lighten-4">
                 Please type your message below
               </v-card-title>
-              <v-text-field
+              
+              <!-- <v-text-field
               v-model="message.to"
                   type="text"
               class = "ma-3"
                 label="Enter your phone number"
                 required
                 outlined
-              ></v-text-field>
+              ></v-text-field> -->
               <v-textarea
               id
-                  v-model="message.message"
+                  v-model="message"
               class = "ma-3"
                 outlined
                 name="input-7-4"
@@ -101,10 +101,7 @@ import axios from "axios";
 export default {
         data: () => {
     return {
-      message: {
-        to: "",
-        message: ""
-      },
+      message: "",
       loading: false,
         dialog: false,
         singleSelect: false,
@@ -114,86 +111,42 @@ export default {
           text: 'Phone Numbers',
           align: 'start',
           sortable: false,
-          value: 'name',
+          value: 'number',
         },
         { text: 'Data source', value: 'source' },
       ],
       phoneNumbers: [
         {
-          name: '+77075002029',
+          number: '+77075002029',
           source: 'from Whatsapp DB'
         },
         {
-          name: '+77075002030',
+          number: '+77078629827',
           source: 'from Shopify DB'
         },
         {
-          name: '+77075002031',
-          source: 'from Whatsapp DB'
-        },
-        {
-          name: '+77075002033',
-          source: 'from Whatsapp DB'
-        },
-        {
-          name: '+77075002045',
-          source: 'from Whatsapp DB'
-        },
-        {
-          name: '+77075002078',
+          number: '+77079481010',
           source: 'from Shopify DB'
-        },
-        {
-          name: '+77075002077',
-          source: 'from Whatsapp DB'
-        },
-        {
-          name: '+77075002001',
-          source: 'from Whatsapp DB'
-        },
-        {
-          name: '+77075002758',
-          source: 'from Shopify DB'
-        },
-        {
-          name: '+77075002458',
-          source: 'from Whatsapp DB'
-        },
-        {
-          name: '+77075001478',
-          source: 'from Whatsapp DB'
-        },
-        {
-          name: '+77077892045',
-          source: 'from Whatsapp DB'
-        },
-        {
-          name: '+77077832078',
-          source: 'from Shopify DB'
-        },
-        {
-          name: '+77071472077',
-          source: 'from Whatsapp DB'
-        },
-        {
-          name: '+77073332001',
-          source: 'from Whatsapp DB'
-        },
-        
+        }
       ],
     }
     },
     methods: {
-    async sendMessage() {
+    sendMessage() {
       try {
-        await axios.post(
+        const msg = this.message;
+        this.selected.map((x) => {
+          const smsNumber = x.number.toString();
+          const sendPost = axios.post(
           "/twilioapi/send/sms",
-          this.message,
           this.message = {
-            to: "",
-            message: ""
-          },
+            to: smsNumber,
+            message: msg
+          }
         );
+        return sendPost;
+        });
+      
       } catch (err) {
         console.log(err);
       }
