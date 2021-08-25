@@ -1,3 +1,4 @@
+
 <template>
   <section>
     <div class="container">
@@ -44,6 +45,7 @@
 </template>
 
 <script>
+/* eslint-disable no-console */
 import swal from "sweetalert";
 import axios from "axios";
 
