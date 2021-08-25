@@ -77,7 +77,6 @@
                   @click="dialog = false"
                 >
                 <span
-                  v-if="loading"
                   role="status"
                   aria-hidden="true"
                   >
@@ -186,18 +185,20 @@ export default {
     },
     methods: {
     async sendMessage() {
-      this.loading = true;
       try {
-        await axios.post(
+        let response = await axios.post(
           "/twilioapi/send/sms",
-          this.message
+          this.message,
+          this.message = {
+            to: "",
+            message: ""
+          },
         );
-        this.loading = false;
+        console.log(response);
       } catch (err) {
-        this.loading = false;
         console.log(err);
       }
     }
-  }
+}
 }
 </script>
