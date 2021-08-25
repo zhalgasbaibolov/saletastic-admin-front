@@ -62,7 +62,7 @@ export default {
       this.loading = true;
       try {
         const  response = await axios.post(
-          "https://saletasticdev.herokuapp.com/twilioapi/send/sms",
+          "/twilioapi/send/sms",
           this.message
         );
 
