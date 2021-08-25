@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <v-app id="inspire">
+    <v-app id="inspire" style="display: none;">
       <v-card color="basil">
         <v-tabs v-model="tab" background-color="transparent" color="basil" grow>
           <v-tab v-for="item in items" :key="item">
