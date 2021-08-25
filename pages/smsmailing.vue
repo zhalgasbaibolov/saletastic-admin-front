@@ -42,15 +42,26 @@
               </v-btn>
             </template>
       
-            <v-card>
+            <v-card @submit.prevent="sendMessage">
                 <v-card-title class="text-h6 grey lighten-4">
                 Please type your message below
               </v-card-title>
+              <v-text-field
+              v-model="message.to"
+                  type="text"
+              class = "ma-3"
+                label="Enter your phone number"
+                required
+                outlined
+              ></v-text-field>
               <v-textarea
+              id
+                  v-model="message.message"
               class = "ma-3"
                 outlined
                 name="input-7-4"
                 label="Message area"
+                required
                 
               ></v-textarea>
       
@@ -59,10 +70,17 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn
+                  type="submit"
                   color="primary"
                   text
                   @click="dialog = false"
                 >
+                <span
+                  v-if="loading"
+                  role="status"
+                  aria-hidden="true"
+                  >
+                </span>
                   Send message!
                 </v-btn>
               </v-card-actions>
@@ -77,9 +95,17 @@
 </template>
 
 <script>
+import swal from "sweetalert";
+import axios from "axios";
+
 export default {
         data: () => {
     return {
+      message: {
+        to: "",
+        message: ""
+      },
+      loading: false,
         dialog: false,
         singleSelect: false,
       selected: [],
@@ -156,6 +182,25 @@ export default {
         
       ],
     }
+    },
+    methods: {
+    async sendMessage() {
+      this.loading = true;
+      try {
+        const  response = await axios.post(
+          "https://saletasticdev.herokuapp.com/send-message",
+          this.message
+        );
+
+        console.log(response);
+        swal("Success", response.data.message, "success");
+        this.loading = false;
+      } catch (err) {
+        swal("Error", "Something Went Wrong", "error");
+        this.loading = false;
+        console.log(err);
+      }
     }
+  }
 }
 </script>
