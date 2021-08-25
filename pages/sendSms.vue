@@ -55,7 +55,6 @@ export default {
         to: "",
         message: ""
       },
-      loading: false
     };
   },
   methods: {
@@ -66,9 +65,11 @@ export default {
           "/twilioapi/send/sms",
           this.message
         );
-        this.loading = false;
+        this.message = {
+          to: "",
+          message: ""
+        }
       } catch (err) {
-        this.loading = false;
         console.log(err);
       }
     }
