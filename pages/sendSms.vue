@@ -62,7 +62,7 @@ export default {
       this.loading = true;
       try {
         const  response = await axios.post(
-          "https://rocky-shore-79636.herokuapp.com/https://saletasticdev.herokuapp.com/send/sms",
+          "https://saletasticdev.herokuapp.com/send/sms",
           this.message
         );
 
