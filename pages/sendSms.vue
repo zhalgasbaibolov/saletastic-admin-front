@@ -46,7 +46,6 @@
 
 <script>
 /* eslint-disable no-console */
-import swal from "sweetalert";
 import axios from "axios";
 
 export default {
@@ -63,16 +62,12 @@ export default {
     async sendMessage() {
       this.loading = true;
       try {
-        const  response = await axios.post(
+        await axios.post(
           "/twilioapi/send/sms",
           this.message
         );
-
-        console.log(response);
-        swal("Success", response.data.message, "success");
         this.loading = false;
       } catch (err) {
-        swal("Error", "Something Went Wrong", "error");
         this.loading = false;
         console.log(err);
       }
