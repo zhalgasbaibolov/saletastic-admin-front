@@ -151,7 +151,6 @@ export default {
         })
     },
     saveShopify() {
-      /*
       if (this.settings.shopify && this.settings.shopify.externalUrl)
         this.settings.shopify.externalUrl = this.removeProtocol(
           this.settings.shopify.externalUrl
@@ -165,7 +164,6 @@ export default {
         .catch(() => {
           alert('error on saving')
         })
-    */
     },
   },
 }
