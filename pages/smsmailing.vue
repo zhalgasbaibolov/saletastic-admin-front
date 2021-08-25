@@ -74,7 +74,7 @@
                   type="submit"
                   color="primary"
                   text
-                  @click="dialog = false; sendMessage;"
+                  @click="dialog = false; sendMessage()"
                 >
                 <span
                   role="status"
