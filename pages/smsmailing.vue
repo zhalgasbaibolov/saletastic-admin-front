@@ -186,7 +186,7 @@ export default {
     methods: {
     async sendMessage() {
       try {
-        let response = await axios.post(
+        await axios.post(
           "/twilioapi/send/sms",
           this.message,
           this.message = {
@@ -194,7 +194,6 @@ export default {
             message: ""
           },
         );
-        console.log(response);
       } catch (err) {
         console.log(err);
       }
