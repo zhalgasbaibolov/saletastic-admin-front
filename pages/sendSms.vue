@@ -30,8 +30,6 @@
               </div>
               <button type="submit" class="btn btn-primary">
                 <span
-                  v-if="loading"
-                  class="spinner-grow spinner-grow-sm"
                   role="status"
                   aria-hidden="true"
                 ></span>Send
@@ -47,7 +45,6 @@
 <script>
 /* eslint-disable no-console */
 import axios from "axios";
-
 export default {
   data() {
     return {
@@ -59,20 +56,20 @@ export default {
   },
   methods: {
     async sendMessage() {
-      this.loading = true;
       try {
         await axios.post(
           "/twilioapi/send/sms",
-          this.message
+          this.message,
+          this.message = {
+            to: "",
+            message: ""
+          },
         );
-        this.message = {
-          to: "",
-          message: ""
-        }
+        console.log(response);
       } catch (err) {
         console.log(err);
       }
     }
-  }
-};
+}
+}
 </script>
