@@ -54,7 +54,8 @@
                         class = "ma-1"
                         outlined
                         v-model="editedItem.number"
-                        label="Phone number"
+                        label="Type phone number"
+                        placeholder="Example: +916231234567"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -99,7 +100,7 @@
           outlined
           fab
           dark
-          small
+          x-small
           color="blue"
           @click="editItem(item)"
         >
@@ -112,7 +113,7 @@
         outlined
         fab
         dark
-        small
+        x-small
         color="red"
         @click="deleteItem(item)"
         >
@@ -171,7 +172,9 @@
                 name="input-7-4"
                 label="Message area"
                 required
-                
+                :rules="rules"
+              counter="160"
+              hint="SMS text limit is 160 characters"
               ></v-textarea>
       
               <v-divider></v-divider>
@@ -208,7 +211,7 @@
 import axios from "axios";
 
 export default {
-        data: () => {
+  data: () => {
     return {
       message: "",
       loading: false,
@@ -229,17 +232,18 @@ export default {
         { text: 'Actions', value: 'actions', sortable: false },
       ],
       phoneNumbers: [],
-    editedIndex: -1,
-    editedItem: {
-      number: '',
-      source: 'Added by User',
-    },
-    defaultItem: {
-      number: '',
-      source: 'Added by User',
-    },
+      editedIndex: -1,
+      editedItem: {
+        number: '',
+        source: 'Added by User',
+      },
+      defaultItem: {
+        number: '',
+        source: 'Added by User',
+      },
+      rules: [v => v.length <= 160 || 'Max 160 characters'],
     }
-    },
+  },
     computed: {
     formTitle () {
       return this.editedIndex === -1 ? 'New Phone Number' : 'Edit Phone Number'
