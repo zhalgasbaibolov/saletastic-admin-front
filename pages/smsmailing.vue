@@ -146,7 +146,7 @@ export default {
         );
         return sendPost;
         });
-      
+        this.selected = []
       } catch (err) {
         console.log(err);
       }
