@@ -13,7 +13,7 @@
       class="elevation-1"
     fixed-header
       height="450px">
-        <template v-slot:top>
+        <template #top>
         <v-toolbar
           flat
         >
@@ -28,7 +28,7 @@
             v-model="dialogNew"
             max-width="500px"
           >
-            <template v-slot:activator="{ on, attrs }">
+            <template #activator="{ on, attrs }">
               <v-btn
                 color="primary"
                 dark
@@ -51,9 +51,9 @@
                       cols="12"
                     >
                       <v-text-field
-                        class = "ma-1"
-                        outlined
                         v-model="editedItem.number"
+                        class = "ma-1"
+                        outlined                        
                         label="Type phone number"
                         placeholder="Example: +916231234567"
                       ></v-text-field>
@@ -94,7 +94,7 @@
           </v-dialog>
         </v-toolbar>
       </template>
-      <template v-slot:[`item.actions`]="{ item }">
+      <template #[`item.actions`]="{ item }">
         <v-btn
           class="mx-2"
           outlined
@@ -166,13 +166,13 @@
               ></v-text-field> -->
               <v-textarea
               id
-                  v-model="message"
+              v-model="message"
               class = "ma-3"
-                outlined
-                name="input-7-4"
-                label="Message area"
-                required
-                :rules="rules"
+              outlined
+              name="input-7-4"
+              label="Message area"
+              required
+              :rules="rules"
               counter="160"
               hint="SMS text limit is 160 characters"
               ></v-textarea>
