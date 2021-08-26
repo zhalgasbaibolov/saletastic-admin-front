@@ -17,7 +17,7 @@
               color="primary"
               data-ms-membership="60f7b76fc2135000047acf81"
             >
-              sign up
+              SIGN UP
             </v-btn>
           </v-list-item-content>
         </v-list-item>
@@ -26,7 +26,11 @@
             <v-icon color="blue darken-2">mdi-login</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title v-text="`Sign In`" />
+            <v-btn
+              color="primary"
+            >
+              SIGN IN
+            </v-btn>
           </v-list-item-content>
         </v-list-item>
 
@@ -38,7 +42,7 @@
             <h3 data-ms-member="email"></h3>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item to="/">
+        <v-list-item to="/home" data-ms-content="members">
           <v-list-item-action>
             <v-icon color="red darken-2">mdi-home</v-icon>
           </v-list-item-action>
