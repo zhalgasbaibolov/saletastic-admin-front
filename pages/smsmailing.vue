@@ -94,19 +94,33 @@
         </v-toolbar>
       </template>
       <template v-slot:[`item.actions`]="{ item }">
-        <v-icon
+        <v-btn
+          class="mx-2"
+          outlined
+          fab
+          dark
           small
-          class="mr-2"
+          color="blue"
           @click="editItem(item)"
         >
-          mdi-pencil
-        </v-icon>
-        <v-icon
-          small
-          @click="deleteItem(item)"
+          <v-icon>
+            mdi-pencil
+          </v-icon>
+        </v-btn>
+        <v-btn
+        class="mx-2"
+        outlined
+        fab
+        dark
+        small
+        color="red"
+        @click="deleteItem(item)"
         >
-          mdi-delete
-        </v-icon>
+          <v-icon>
+            mdi-delete
+          </v-icon>
+        </v-btn>
+        
       </template>
     </v-data-table>
     <v-row class="pa-2">
@@ -125,7 +139,7 @@
           >
             <template #activator="{ on, attrs }">
               <v-btn
-                color="blue"
+                color="primary"
                 dark
                 height="50"
                 width="300"
@@ -167,6 +181,7 @@
                 <v-btn
                   type="submit"
                   color="primary"
+                  dark
                   text
                   @click="dialog = false; sendMessage()"
                 >
