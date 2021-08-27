@@ -141,8 +141,7 @@
                 <v-btn
                   color="primary"
                   dark
-                  height="50"
-                  width="300"
+                  class="mb-2"
                   v-bind="attrs"
                   v-on="on"
                 >
