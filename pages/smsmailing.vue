@@ -7,12 +7,12 @@
         :headers="headers"
         :items="phoneNumbers"
         :single-select="singleSelect"
-        item-key="number"
+        item-key="numbers"
         show-select
         class="elevation-1"
         fixed-header
         height="450px"
-      >
+      > 
         <template #top>
           <v-toolbar
             flat
@@ -51,7 +51,7 @@
                         cols="12"
                       >
                         <v-text-field
-                          v-model="editedItem.number"
+                          v-model="editedItem.numbers"
                           class = "ma-1"
                           outlined                        
                           label="Type phone number"
@@ -174,7 +174,8 @@
                 :rules="rules"
                 counter="160"
                 hint="SMS text limit is 160 characters"
-                ></v-textarea>
+                >
+                </v-textarea>
         
                 <v-divider></v-divider>
         
@@ -224,7 +225,7 @@ export default {
           text: 'Phone Number',
           align: 'start',
           sortable: false,
-          value: 'number',
+          value: 'numbers',
         },
         { text: 'Data source', value: 'source' },
         { text: 'Actions', value: 'actions', sortable: false },
@@ -232,11 +233,11 @@ export default {
       phoneNumbers: [],
       editedIndex: -1,
       editedItem: {
-        number: '',
+        numbers: '',
         source: 'Added by User',
       },
       defaultItem: {
-        number: '',
+        numbers: '',
         source: 'Added by User',
       },
       rules: [v => v.length <= 160 || 'Max 160 characters'],
@@ -258,16 +259,35 @@ export default {
     },
   },
 
-  created () {
-    this.initialize()
+  // created () {
+  //   this.initialize()
+  // },
+  mounted () {
+    this.getAllcontacts()
   },
-
   methods: {
+    
+    getAllcontacts () {
+      axios.get('twilioapi/get/contacts')
+            .then(response =>{
+              const numbers = response.data.map((x) => ({
+                    numbers: '+' + x.phone,
+                    source: 'from Whatsapp DB'
+                  }) 
+               )
+              // console.log(numbers)
+                this.phoneNumbers = numbers
+              
+            })
+            .catch(e => {
+                console.log(e)
+            })
+    },
     sendMessage() {
       try {
         const msg = this.message;
         this.selected.map((x) => {
-          const smsNumber = x.number.toString();
+          const smsNumber = x.numbers;
           const sendPost = axios.post(
             "/twilioapi/send/sms",
             this.message = {
@@ -282,14 +302,14 @@ export default {
         console.log(err);
       }
     },
-    initialize () {
-      this.phoneNumbers = [
-        {
-          number: '+77075002029',
-          source: 'Whatsapp DB',
-        },
-      ]
-    },
+    // initialize () {
+    //   this.phoneNumbers = [
+    //     {
+    //       numbers: '+77075002029',
+    //       source: 'whatsapp',
+    //     },
+    //   ]
+    // },
 
     editItem (item) {
       this.editedIndex = this.phoneNumbers.indexOf(item)
